@@ -1,0 +1,42 @@
+<h4 mat-dialog-title>{{dialogOptions.title}}</h4>
+<div mat-dialog-content>
+    <p class="title-text">{{dialogOptions.message}}</p>
+    <form [formGroup]="formInputGroup" name="formInputGroup" #formInputGroupName="ngForm" (ngSubmit)="formInputGroup.valid && onSubmit()">
+        <div class="form-row">
+            <!-- <pre>{{formInputGroup.value |json}}</pre> -->
+            <div class="col" formArrayName="formInput" *ngFor="let formField of formInput.controls; let fieldIndex = index;">
+                <div [formGroupName]="fieldIndex">
+                    <div [ngSwitch]="formField.get('dataType').value">
+                        <div *ngSwitchCase="'string'">
+                            <div class="form-group">
+                                <!-- <p class="subtitle-text" for="fullname">Fullname</p> -->
+                                <input placeholder="{{formField.get('title').value}}" formControlName="value" type="text" class="form-control" required minlength="5" autocomplete="off">
+                                <div *ngIf="formInputGroup.submitted && formInput.controls[fieldIndex].get('value').invalid && (formInput.controls[fieldIndex].get('value').dirty || formInput.controls[fieldIndex].get('value').touched)" class="animate__animated animate__bounceIn">
+                                    <small *ngIf="formInput.controls[fieldIndex].get('value').hasError('required')" class="form-text">
+                                        {{formField.get('title').value+' is required'}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngSwitchCase="'dropdown'">
+                            <div class="">
+                                <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                                    <mat-label style="font-size: 16px;">{{formField.get('title').value}}</mat-label>
+                                    <mat-select formControlName="value" style="font-size: 16px;">
+                                        <mat-option *ngFor="let option of formBuilderService.getOptionsAsList(formField.get('listofValues').value);" value="{{option}}">
+                                            {{option}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <!-- <mat-hint>{{formField.get('title').value}}</mat-hint> -->
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="cancel() ">Cancel</button>
+    <button type="submit " mat-button (click)="onSubmit(); " [disabled]="!formInputGroup.valid ">Submit</button>
+</div>

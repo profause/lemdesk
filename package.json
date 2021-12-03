@@ -28,6 +28,8 @@
     "bootstrap": "^4.4.1",
     "express": "^4.17.1",
     "jquery": "^3.6.0",
+    "lottie-web": "^5.8.1",
+    "ngx-lottie": "^7.0.4",
     "ngx-swiper-wrapper": "^8.0.2",
     "path": "^0.12.7",
     "rxjs": "~6.6.0",

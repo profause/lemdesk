@@ -1,0 +1,64 @@
+<div class="container" style="height: 100vh;">
+    <div class="row align-items-center h-100">
+        <div class="col-md-5 offset-md-3 mx-auto">
+            <div class="card-2 p-3">
+                <form [formGroup]="loginFormGroup" #loginForm="ngForm" name="loginFormGroup" (ngSubmit)="loginForm.valid && login()">
+                    <h4 class="title-text">Login with your username and password</h4>
+                    <div class="form-group mt-0 mb-0">
+                        <mat-form-field appearance="outline" style="width: 100%; font-size: 16px;">
+                            <mat-label>Username</mat-label>
+                            <input matInput placeholder="username" formControlName="username" type="text" id="username" name="username" required autofocus minlength="4" autocomplete="off" [ngClass]="{ 'is-invalid':loginForm.submitted && loginFormGroup.get('username')?.hasError('required') }"
+                                aria-describedby="usernameHint">
+                        </mat-form-field>
+
+                        <div *ngIf="loginForm.submitted && loginFormGroup.get('username')?.hasError('required')" class="invalid-feedback animate__animated animate__bounceIn">
+                            <small *ngIf="loginFormGroup.get('username')?.hasError('required')" id="usernameHint" class="form-text">username
+                                is
+                                required</small>
+                            <small *ngIf="loginFormGroup.get('username')?.hasError('minlength')" id="usernameHint" class="form-text">Please
+                                provide a minimum length of 5 characters</small>
+                            <small *ngIf="loginFormGroup.get('username')?.hasError('username')">Please provide a valid
+                                username</small>
+                        </div>
+                    </div>
+                    <div class="form-group mt-0 mb-0">
+                        <mat-form-field appearance="outline" style="width: 100%; font-size: 16px;">
+                            <mat-label>Password</mat-label>
+                            <input matInput placeholder="password" formControlName="password" type="password" id="password" name="password" required autofocus minlength="4" autocomplete="off" [ngClass]="{ 'is-invalid':loginForm.submitted && loginFormGroup.get('password')?.hasError('required') }"
+                                aria-describedby="passwordHint">
+                        </mat-form-field>
+                        <div *ngIf="loginForm.submitted && loginFormGroup.get('password')?.hasError('required')" class="invalid-feedback animate__animated animate__bounceIn">
+                            <small *ngIf="loginFormGroup.get('password')?.hasError('required')" id="passwordHint" class="form-text">password
+                                is
+                                required</small>
+                            <small *ngIf="loginFormGroup.get('password')?.hasError('minlength')" id="passwordHint" class="form-text">Please
+                                provide a minimum length of 5 characters</small>
+                            <small *ngIf="loginFormGroup.get('password')?.hasError('password')">Please provide a valid
+                                password</small>
+                        </div>
+                    </div>
+                    <button mat-flat-button type="submit" [disabled]="isLoading || !loginForm.valid" style="font-size: 18px; font-family: avenir-roman; height: 44px;" class="btn btn-block btn-primary mt-2">Login</button>
+                    <div class="d-flex justify-content-center mt-2 mb-3">
+                        <button mat-button color="accent">Can't login</button>
+                    </div>
+                    <div class="d-flex justify-content-center mt-2 mb-3">
+                        <mat-spinner [hidden]="!isLoading" class="align-self-center" mode="indeterminate" [diameter]="35" [strokeWidth]="2">
+                        </mat-spinner>
+                    </div>
+                </form>
+            </div>
+            <p class="mt-4 subtitle-text text-center">Urgency does not warrant changing methods that work for methods that do not work - Body of Lies movie (2008)</p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<svg id="clouds" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">
+    <title>Gray Clouds Background</title>
+    <path id="Path_39" data-name="Path 39"
+        d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z"
+        transform="translate(142.69 -634.312)" fill="#eee" />
+</svg>

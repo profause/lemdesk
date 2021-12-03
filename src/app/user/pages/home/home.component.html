@@ -1,0 +1,141 @@
+<app-bar></app-bar>
+
+<div class="container-fluid bg-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="text-bold color-primary mt-2">LemDesk</h2>
+                <div class="d-flex justify-content-start mt-2 mb-2">
+                    <a [routerLink]="['/home']" class="title-text pr-3 pl-3 pt-1 pb-1 mr-2 btn" [routerLinkActive]="['active-link']">HOME</a>
+                    <a [routerLink]="['/services']" class="title-text pr-3 pl-3 pt-1 pb-1 ml-1 mr-2 btn" [routerLinkActive]="['active-link']">SERVICES</a>
+                    <a [routerLink]="['/fags']" class="title-text pr-3 pl-3 pt-1 pb-1 ml-1 mr-2 btn" [routerLinkActive]="['active-link']">FAQs</a>
+                    <a [routerLink]="['/login']" class="title-text pr-3 pl-3 pt-1 pb-1 ml-1 mr-2 btn" [routerLinkActive]="['active-link']">LOGIN</a>
+                </div>
+                <div class="mt-5 mb-2">
+                    <p class="text-bold" style="font-size: 24px;">Powerful Issue Resolution & Service Management</p>
+                    <p class="subtitle-text">A problem well stated is a problem half solved.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img src="assets/images/photo-1522071820081-009f0129c71c.png" class="img-fluid" alt="">
+            </div>
+            <div class="col-md-12 mt-5 pb-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card-border-primary p-3" style="min-height: 370px;">
+                            <div class="d-flex justify-content-center mt-2 mb-3">
+                                <div style="height: 170px; width: 170px;" lottie [options]="serviceRequest" (animationCreated)="animationCreated($event)"></div>
+                            </div>
+                            <h2 class="text-center text-bold">SERVICE REQUEST</h2>
+                            <p class="subtitle-text text-center">A formal request from a user for something to be provided – for example, a request for information or advice’.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card-border-primary p-3" style="min-height: 370px;">
+                            <div class="d-flex justify-content-center mt-2 mb-3">
+                                <div style="height: 170px; width: 170px;" lottie [options]="issueResolution" (animationCreated)="animationCreated($event)"></div>
+                            </div>
+                            <h2 class="text-center text-bold">ISSUE RESOLUTION</h2>
+                            <p class="text-center subtitle-text">Help me help myself, or I’m out – is the new mantra this ‘always on-demand’ generation is using to get things done. They want solutions, and they want solutions now</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card-border-primary p-3" style="min-height: 370px;">
+                            <div class="d-flex justify-content-center mt-2 mb-3">
+                                <div style="height: 170px; width: 170px;" lottie [options]="timelyResponse" (animationCreated)="animationCreated($event)"></div>
+                            </div>
+                            <h2 class="text-center text-bold">TIMELY RRESPONSE</h2>
+                            <p class="text-center subtitle-text">Quick response time to issues. Customer satisfaction is our number one priority.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" style="background-color: #00bda485;">
+    <div class="container" style="height: 500px;">
+        <div class="d-flex justify-content-center align-items-center h-100 pt-4 pb-4">
+            <div class="card-1 p-3 m-3" style="min-height: 250px; max-width: 300px;">
+                <div class="d-flex justify-content-center mt-2 mb-3">
+                    <img src="assets/images/bill-gates.png" height="120" width="120" class="img-fluid" alt="">
+                </div>
+                <p class="subtitle-text">It’s fine to celebrate success but, it is more important to heed the lessons of failure. - Bill Gates</p>
+            </div>
+
+            <div class="card-1 p-3 m-3" style="min-height: 250px; max-width: 300px;">
+                <div class="d-flex justify-content-center mt-2 mb-3">
+                    <img src="assets/images/Winston-Churchill.png" height="120" width="120" class="img-fluid" alt="">
+                </div>
+                <p class="subtitle-text">However beautiful the strategy, you should occasionally look at the results.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" style="background-color: #1B485D;">
+    <div class="container">
+        <div class="row pt-3 pb-3">
+            <div class="col-md-6">
+                <div class="d-flex justify-content-start mt-2 mb-2">
+                    <a [routerLink]="['/home']" class="title-text pr-3 pl-3 pt-1 pb-1 mr-2 btn color-white" [routerLinkActive]="['active-link']">HOME</a>
+                    <a [routerLink]="['/services']" class="title-text pr-3 pl-3 pt-1 pb-1 ml-1 mr-2 btn color-white" [routerLinkActive]="['active-link']">SERVICES</a>
+                    <a [routerLink]="['/fags']" class="title-text pr-3 pl-3 pt-1 pb-1 ml-1 mr-2 btn color-white" [routerLinkActive]="['active-link']">FAQs</a>
+                    <a [routerLink]="['/login']" class="title-text pr-3 pl-3 pt-1 pb-1 ml-1 mr-2 btn color-white" [routerLinkActive]="['active-link']">LOGIN</a>
+                </div>
+                <h2 class="text-bold color-primary mt-2">LemDesk</h2>
+                <div>
+                    <p class="subtitle-text color-white">Urgency does not warrant changing methods that work for methods that do not work - Body of Lies movie (2008)
+                    </p>
+                </div>
+                <div>
+                    <p class="subtitle-text color-white">Copyright 2021 Accra Institute Of Technology | privacy policy Help desk management website by Profause Enterprise.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h2 class="text-right text-bold color-white">GET IN TOUCH</h2>
+                <p class="subtitle-text text-right color-white">We want to hear from you. Email us at info@lemdesk.com
+                </p>
+
+                <form [formGroup]="contactUsFormGroup" #contactUsForm="ngForm" name="contactUsFormGroup" (ngSubmit)="contactUsForm.valid && sendComment()">
+                    <div class="form-group mt-0 mb-0">
+                        <mat-form-field appearance="outline" class="color-white" style="width: 100%; font-size: 16px;">
+                            <mat-label>Name</mat-label>
+                            <input class="" matInput formControlName="name" type="text" id="name" name="name" required minlength="4" autocomplete="off" [ngClass]="{ 'is-invalid':contactUsForm.submitted && contactUsFormGroup.get('name')?.hasError('required') }" aria-describedby="nameHint">
+                        </mat-form-field>
+
+                        <div *ngIf="contactUsForm.submitted && contactUsFormGroup.get('name')?.hasError('required')" class="invalid-feedback animate__animated animate__bounceIn">
+                            <small *ngIf="contactUsFormGroup.get('name')?.hasError('required')" id="nameHint" class="form-text">name
+                                is
+                                required</small>
+                            <small *ngIf="contactUsFormGroup.get('name')?.hasError('minlength')" id="nameHint" class="form-text">Please
+                                provide a minimum length of 5 characters</small>
+                            <small *ngIf="contactUsFormGroup.get('name')?.hasError('name')">Please provide a valid
+                                name</small>
+                        </div>
+                    </div>
+                    <div class="form-group mt-0 mb-0">
+                        <mat-form-field appearance="outline" class="color-white" style="width: 100%; font-size: 16px;">
+                            <mat-label>Email</mat-label>
+                            <input class="" matInput formControlName="email" type="text" id="email" name="email" required minlength="4" autocomplete="off" [ngClass]="{ 'is-invalid':contactUsForm.submitted && contactUsFormGroup.get('email')?.hasError('required') }" aria-describedby="emailHint">
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group mt-0 mb-0">
+                        <mat-form-field appearance="outline" class="color-white" style="width: 100%; font-size: 16px;">
+                            <mat-label>Comments</mat-label>
+                            <textarea class="" rows="3" matInput formControlName="comment" type="text" id="comment" name="comment" required minlength="4" autocomplete="off" [ngClass]="{ 'is-invalid':contactUsForm.submitted && contactUsFormGroup.get('comment')?.hasError('required') }"
+                                aria-describedby="commentHint"></textarea>
+                        </mat-form-field>
+                    </div>
+                    <button mat-flat-button type="submit" [disabled]="isLoading || !contactUsForm.valid" style="font-size: 18px; font-family: HurmeGeometricSans1-regular; height: 44px;" class="btn btn-block btn-primary mt-2">Submit</button>
+                    <div class="d-flex justify-content-center mt-2 mb-3">
+                        <mat-spinner [hidden]="!isLoading" class="align-self-center" mode="indeterminate" [diameter]="35" [strokeWidth]="2">
+                        </mat-spinner>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
