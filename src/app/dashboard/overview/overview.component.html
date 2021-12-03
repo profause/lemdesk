@@ -1,0 +1,95 @@
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="background-color: transparent;">
+            <li class="breadcrumb-item">
+                <li class="breadcrumb-item active" aria-current="page">overview</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card-2 pt-3 pb-3 pr-3 pl-3 mb-3" style="background-color: #c4e8efb0;">
+                <h2 class="title-text">Hi, PROFAUSE</h2>
+                <p class="subtitle-text">You have 6 issues pending resolution. Your activity progress is looking excellent.
+                </p>
+                <button mat-flat-button style="font-size: 18px; font-family: HurmeGeometricSans1-regular; height: 44px;" class="btn btn-block btn-primary mt-2">View pending list</button>
+            </div>
+            <img src="assets/images/people_high_five.png" class="img-fluid" alt="">
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card-2 pt-3 pb-3 pr-4 pl-3" style="background-color: #E5F6FF;">
+                        <div class="d-flex justify-content-between align-items-center mt-2 mb-2">
+                            <img src="assets/images/pending_icon.png" height="90" width="90" class="img-fluid" alt="">
+                            <div>
+                                <h1 class="text-right title-text" style="color: #2586FD;">150</h1>
+                                <h3 class="subtitle-text text-right">PENDING</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card-2 pt-3 pb-3 pr-4 pl-3" style="background-color: #F6F3FF;">
+                        <div class="d-flex justify-content-between align-items-center mt-2 mb-2">
+                            <img src="assets/images/pending_confirmation_icon.png" height="90" width="90" class="img-fluid" alt="">
+                            <div>
+                                <h1 class="text-right title-text" style="color: #705DC1;">150</h1>
+                                <h3 class="subtitle-text text-right">PENDING CONFIRMATION</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mt-4">
+                    <div class="card-2 pt-3 pb-3 pr-4 pl-3" style="background-color: #E2F6E9;">
+                        <div class="d-flex justify-content-between align-items-center mt-2 mb-2">
+                            <img src="assets/images/resolved_icon.png" height="90" width="90" class="img-fluid" alt="">
+                            <div>
+                                <h1 class="text-right title-text" style="color: #00BDA3;">150</h1>
+                                <h3 class="subtitle-text text-right">RESOLVED</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mt-4">
+                    <div class="card-2 pt-3 pb-3 pr-4 pl-3" style="background-color: #FFF0E9;">
+                        <div class="d-flex justify-content-between align-items-center mt-2 mb-2">
+                            <img src="assets/images/recently_closed_icon.png" height="90" width="90" class="img-fluid" alt="">
+                            <div>
+                                <h1 class="text-right title-text" style="color: #ff00009c;">150</h1>
+                                <h3 class="subtitle-text text-right">RECENTLY CLOSED</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="card-border-primary pt-3 pb-3 pr-3 pl-3">
+                        <h2 class="title-text">RECENTLY CLOSED</h2>
+                        <div class="table-responsive bg-white" style="max-height: 620px;">
+                            <table style="font-size: 16px;" class="table bg-white table-borderless table-striped table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th class="subtitle-text" style="font-family: avenir-roman; font-weight: 300;" scope="col">
+                                            Initiator
+                                        </th>
+                                        <th>Request Type</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div class="d-flex justify-content-center mt-2 mb-3">
+                                <mat-spinner [hidden]="!isLoading" class="align-self-center" mode="indeterminate" [diameter]="35" [strokeWidth]="2">
+                                </mat-spinner>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

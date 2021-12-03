@@ -28,6 +28,7 @@ body {
 }
 
 .card-2 {
+    border-radius: 10px;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px .5px;
 }
@@ -41,6 +42,11 @@ body {
     background-color: #00BDA3;
     color: white;
     border-color: #00BDA3;
+}
+
+.bg-primary {
+    background-color: #00BDA3 !important;
+    color: white;
 }
 
 .color-white {

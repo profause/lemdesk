@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
 import { AppbarComponent } from './shared/components/appbar/appbar.component';
+import { DashboardModule, DashboardRoutingComponents } from './dashboard/dashboard.module';
 
 export function playerFactory() {
   return player;
@@ -19,6 +20,7 @@ export function playerFactory() {
 @NgModule({
   declarations: [
     AppRoutingComponents,
+    DashboardRoutingComponents,
     AppComponent,
     AppbarComponent
   ],
@@ -26,6 +28,7 @@ export function playerFactory() {
     UserModule,
     SharedModule,
     AppMaterialDesignModule,
+    DashboardModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
