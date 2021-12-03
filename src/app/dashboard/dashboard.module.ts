@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { OverviewComponent } from './overview/overview.component';
 import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from '../shared/shared.module';
+import { AdminOverviewComponent } from './admin-overview/admin-overview.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
       {
         path: "overview",
         component: OverviewComponent,
+      },
+      {
+        path: "admin-overview",
+        component: AdminOverviewComponent,
       },
       { path: "**", redirectTo: "overview" },
     ]
@@ -31,5 +36,6 @@ const routes: Routes = [
 export class DashboardModule { }
 export const DashboardRoutingComponents = [
   DashboardComponent,
-  OverviewComponent
+  OverviewComponent,
+  AdminOverviewComponent
 ]

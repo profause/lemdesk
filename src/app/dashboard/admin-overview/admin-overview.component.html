@@ -1,0 +1,95 @@
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="background-color: transparent;">
+            <li class="breadcrumb-item">
+                <li class="breadcrumb-item active" aria-current="page">overview</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card-2 pt-3 pb-3 pr-3 pl-3 mb-3" style="background-color: #c4e8efb0;">
+                <h2 class="title-text">Hi, PROFAUSE</h2>
+                <p class="subtitle-text">You have 6 issues pending resolution. Your activity progress is looking excellent.
+                </p>
+                <button mat-flat-button style="font-size: 18px; font-family: HurmeGeometricSans1-regular; height: 44px;" class="btn btn-block btn-primary mt-2">View pending list</button>
+            </div>
+            <img src="assets/images/people_high_five.png" class="img-fluid" alt="">
+        </div>
+        <div class="col-md-9">
+            <div class="row pb-4 pt-1" style="background-color: #FFFFFF;">
+                <div class="col-md-6 mt-3">
+                    <div class="card-2 pt-3 pb-3 pr-4 pl-3" style="background-color: white; min-height: 165px;">
+                        <div class="d-flex justify-content-between align-items-center mt-2 mb-2">
+                            <img src="assets/images/users_icon.png" height="90" width="90" class="img-fluid" alt="">
+                            <div>
+                                <h1 class="text-left title-text color-primary">USERS</h1>
+                                <h3 class="subtitle-text text-left">Manage application users</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-3">
+                    <div class="card-2 pt-3 pb-3 pr-4 pl-3" style="background-color: white; min-height: 165px;">
+                        <div class="d-flex justify-content-between align-items-center mt-2 mb-2">
+                            <img src="assets/images/access_control_icon.png" height="90" width="90" class="img-fluid" alt="">
+                            <div>
+                                <h1 class="text-left title-text color-primary">ACCESS CONTROL</h1>
+                                <h3 class="subtitle-text text-left">Manage roles and permissions of users</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mt-3">
+                    <div class="card-2 pt-3 pb-3 pr-3 pl-3" style="background-color: white; min-height: 165px;">
+                        <div class="d-flex justify-content-between align-items-center mt-2 mb-2">
+                            <img src="assets/images/departments_icon.png" height="90" width="90" class="img-fluid" alt="">
+                            <div>
+                                <h3 class="text-right title-text color-primary">DEPARTMENTS & OPERATIONS</h3>
+                                <h3 class="subtitle-text text-right">Manage organisation departments and their operations</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mt-3">
+                    <div class="card-2 pt-3 pb-3 pr-4 pl-3" style="background-color: white; min-height: 165px;">
+                        <div class="d-flex justify-content-between align-items-center mt-2 mb-2">
+                            <img src="assets/images/departments_icon.png" height="90" width="90" class="img-fluid" alt="">
+                            <div>
+                                <h1 class="text-left title-text color-primary">AUDIT & REPORTS</h1>
+                                <h3 class="subtitle-text text-left">Audit log and reports</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="card-border-primary pt-3 pb-3 pr-3 pl-3">
+                        <h2 class="title-text">RECENTLY CLOSED</h2>
+                        <div class="table-responsive bg-white" style="max-height: 620px;">
+                            <table style="font-size: 16px;" class="table bg-white table-borderless table-striped table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th class="subtitle-text" style="font-family: avenir-roman; font-weight: 300;" scope="col">
+                                            Initiator
+                                        </th>
+                                        <th>Request Type</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div class="d-flex justify-content-center mt-2 mb-3">
+                                <mat-spinner [hidden]="!isLoading" class="align-self-center" mode="indeterminate" [diameter]="35" [strokeWidth]="2">
+                                </mat-spinner>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
