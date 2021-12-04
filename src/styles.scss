@@ -1,5 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
+// @import '~@angular/material/theming';
+// @include mat-core();
+// $primary: mat-palette($mat-blue, 200);
+// $accent: mat-palette($mat-orange, 200);
+// $theme: mat-light-theme($primary, $accent);
+// @include angular-material-theme($theme);
 html,
 body {
     height: 100%;
@@ -129,4 +135,68 @@ h2.text-bold {
 //mat-input focused color
 .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
     color: #00BDA3!important;
+}
+
+// mat-icon-stepper selected color change 
+.mat-step-header .mat-step-icon-selected,
+.mat-step-header .mat-step-icon-state-done,
+.mat-step-header .mat-step-icon-state-edit {
+    background-color: #00BDA3!important;
+}
+
+//input outline color
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #00BDA3!important;
+    // opacity: 1!important;
+}
+
+//mat-input focused color
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: #00BDA3!important;
+}
+
+// mat-input error outline color
+.mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+    color: red!important;
+    opacity: 0.8!important;
+}
+
+// mat-input carent color
+.mat-input-element {
+    caret-color: red!important;
+}
+
+// mat-input error carent color
+.mat-form-field-invalid .mat-input-element,
+.mat-warn .mat-input-element {
+    caret-color: red!important;
+}
+
+// mat-label normal state style
+.mat-form-field-label {
+    color: rgba(0, 0, 0, .6)!important;
+    // color: $mainColor!important;
+}
+
+// mat-label focused style
+.mat-form-field.mat-focused .mat-form-field-label {
+    color: black!important;
+}
+
+// mat-label error style
+.mat-form-field.mat-form-field-invalid .mat-form-field-label {
+    color: red!important;
+}
+
+a.link {
+    text-decoration: none;
+    color: inherit;
+}
+
+a,
+a:hover,
+a:focus,
+a:active {
+    text-decoration: none;
+    color: inherit;
 }

@@ -32,7 +32,8 @@
                             "./node_modules/bootstrap/dist/css/bootstrap.min.css",
                             "./node_modules/swiper/dist/css/swiper.min.css",
                             "./node_modules/animate.css/animate.min.css",
-                            "src/styles.scss"
+                            "src/styles.scss",
+                            "src/assets/css/theme.scss"
                         ],
                         "scripts": []
                     },

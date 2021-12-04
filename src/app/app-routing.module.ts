@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppbarComponent } from './shared/components/appbar/appbar.component';
 import { HomeComponent } from './user/pages/home/home.component';
 import { LoginComponent } from './user/pages/login/login.component';
+import { UserComponent } from './user/pages/user/user.component';
 
 const routes: Routes = [
   {
@@ -10,6 +11,10 @@ const routes: Routes = [
   },
   {
     path: 'login', component: LoginComponent,
+  },
+
+  {
+    path: 'users', component: UserComponent,
   },
   { path: "**", redirectTo: "home" },
 ];
@@ -22,4 +27,5 @@ export class AppRoutingModule { }
 export const AppRoutingComponents = [
   LoginComponent,
   HomeComponent,
+  UserComponent
 ];
