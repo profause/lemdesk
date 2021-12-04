@@ -19,7 +19,7 @@
             </div>
             <div class="col-md-12 mt-5 pb-5">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 mb-4">
                         <div class="card-border-primary p-3" style="min-height: 370px;">
                             <div class="d-flex justify-content-center mt-2 mb-3">
                                 <div style="height: 170px; width: 170px;" lottie [options]="serviceRequest" (animationCreated)="animationCreated($event)"></div>
@@ -29,7 +29,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-4 mb-4">
                         <div class="card-border-primary p-3" style="min-height: 370px;">
                             <div class="d-flex justify-content-center mt-2 mb-3">
                                 <div style="height: 170px; width: 170px;" lottie [options]="issueResolution" (animationCreated)="animationCreated($event)"></div>
@@ -39,7 +39,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-4 mb-4">
                         <div class="card-border-primary p-3" style="min-height: 370px;">
                             <div class="d-flex justify-content-center mt-2 mb-3">
                                 <div style="height: 170px; width: 170px;" lottie [options]="timelyResponse" (animationCreated)="animationCreated($event)"></div>
@@ -54,21 +54,25 @@
     </div>
 </div>
 <div class="container-fluid" style="background-color: #00bda485;">
-    <div class="container" style="height: 500px;">
-        <div class="d-flex justify-content-center align-items-center h-100 pt-4 pb-4">
-            <div class="card-1 p-3 m-3" style="min-height: 250px; max-width: 300px;">
-                <div class="d-flex justify-content-center mt-2 mb-3">
-                    <img src="assets/images/bill-gates.png" height="120" width="120" class="img-fluid" alt="">
+    <div class="container" style="min-height: 50vh;">
+        <div class="row align-items-center h-100">
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <div class="card-1 p-3 m-3" style="height: 290px; max-width: 300px;">
+                    <div class="d-flex justify-content-center mt-2 mb-3">
+                        <img src="assets/images/bill-gates.png" height="120" width="120" class="img-fluid" alt="">
+                    </div>
+                    <p class="subtitle-text text-center">It’s fine to celebrate success but, it is more important to heed the lessons of failure. - Bill Gates</p>
                 </div>
-                <p class="subtitle-text">It’s fine to celebrate success but, it is more important to heed the lessons of failure. - Bill Gates</p>
             </div>
-
-            <div class="card-1 p-3 m-3" style="min-height: 250px; max-width: 300px;">
-                <div class="d-flex justify-content-center mt-2 mb-3">
-                    <img src="assets/images/Winston-Churchill.png" height="120" width="120" class="img-fluid" alt="">
+            <div class="col-md-3">
+                <div class="card-1 p-3 m-3" style="height: 290px; max-width: 300px;">
+                    <div class="d-flex justify-content-center mt-2 mb-3">
+                        <img src="assets/images/Winston-Churchill.png" height="120" width="120" class="img-fluid" alt="">
+                    </div>
+                    <p class="subtitle-text text-center">However beautiful the strategy, you should occasionally look at the results.
+                    </p>
                 </div>
-                <p class="subtitle-text">However beautiful the strategy, you should occasionally look at the results.
-                </p>
             </div>
         </div>
     </div>
