@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Department } from '../models/department.interface';
 import { User } from '../models/user.interface';
 import { LocalAuthService } from './local-auth.service';
 
@@ -137,6 +138,71 @@ export class BackendService {
     )
 
     return this.httpClient.delete<any>(environment.backend.baseUrl + '/users/' + id, {
+      headers: httpHeaders,
+    });
+  }
+
+  public addDepartment(department: Department): Observable<any> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
+    });
+
+    const id = new Date().getTime().toString()
+    department.id = id;
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data: department
+      }
+    )
+
+    return this.httpClient.post<any>(environment.backend.baseUrl + '/departments/create', department, {
+      headers: httpHeaders,
+    });
+  }
+
+  public updateDepartment(department: Department): Observable<any> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
+    });
+
+    const id = new Date().getTime().toString()
+    department.id = id;
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data: department
+      }
+    )
+
+    return this.httpClient.put<any>(environment.backend.baseUrl + '/departments/' + department.id, department, {
+      headers: httpHeaders,
+    });
+  }
+
+  public deleteDepartment(id: string): Observable<any> {
+
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
+    });
+
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data: []
+      }
+    )
+
+    return this.httpClient.delete<any>(environment.backend.baseUrl + '/departments/' + id, {
       headers: httpHeaders,
     });
   }

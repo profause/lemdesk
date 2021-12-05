@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddDepartmentComponent } from './department/add-department/add-department.component';
 import { DepartmentComponent } from './department/department.component';
 import { AppbarComponent } from './shared/components/appbar/appbar.component';
 import { AuthGuard } from './shared/guards/auth.guard';
@@ -38,5 +39,6 @@ export const AppRoutingComponents = [
   HomeComponent,
   UserComponent,
   AddUserComponent,
-  DepartmentComponent
+  DepartmentComponent,
+  AddDepartmentComponent
 ];

@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-between mb-3">
+    <h2 mat-dialog-title>{{dialogOptions.title}}</h2>
+    <button mat-icon-button (click)="cancel()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<div mat-dialog-content>
+    <form [formGroup]="departmentFormGroup" #departmentForm="ngForm" name="departmentFormGroup">
+        <div class="form-row card-shadow bg-white mb-2 pl-2 pr-2">
+            <div class="col-md-12" style="margin-bottom: 15px; margin-top: -5px;">
+                <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                    <mat-label style="font-size: 16px;">Department Name</mat-label>
+                    <input matInput required formControlName="name" type="text" name="fullname" id="fullname" autocomplete="off" style="font-size: 18px;" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-12" style="margin-bottom: 15px; margin-top: -5px;">
+                <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                    <mat-label style="font-size: 16px;">Description</mat-label>
+                    <textarea style="font-size: 18px;" class="" rows="3" matInput formControlName="description" type="text" id="description" name="description" required minlength="4" autocomplete="off" [ngClass]="{ 'is-invalid':departmentForm.submitted && departmentFormGroup.get('description')?.hasError('required') }"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="form-row card-shadow bg-white mb-2 pl-2 pr-2">
+            <div class="col-md-12" style="margin-bottom: 15px; margin-top: -5px;">
+                <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                    <mat-label style="font-size: 16px;">Operations</mat-label>
+                    <input matInput required formControlName="operations" type="text" name="operations" id="operations" autocomplete="off" style="font-size: 18px;" />
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+    <div class="col-md-12 d-flex justify-content-center mt-2 mb-3">
+        <mat-spinner [hidden]="!isLoading" class="align-self-center" mode="indeterminate" [diameter]="35" [strokeWidth]="2">
+        </mat-spinner>
+    </div>
+</div>
+<div mat-dialog-actions align="end">
+    <button style="font-size: 18px;" mat-button (click)="cancel()">Cancel</button>
+    <button [disabled]="!departmentForm.valid || isLoading" (click)="save()" style="font-size: 18px;" mat-button cdkFocusInitial>Save</button>
+</div>
