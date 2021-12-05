@@ -251,5 +251,26 @@ export class BackendService {
       headers: httpHeaders,
     });
   }
+
+  public changePassword(formData: any): Observable<any> {
+
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
+    });
+  
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data: []
+      }
+    )
+    
+    return this.httpClient.put<any>(environment.backend.baseUrl + '/users/change-password/' + formData.id, formData, {
+      headers: httpHeaders,
+    });
+  }
 }
 

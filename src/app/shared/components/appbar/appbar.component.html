@@ -13,7 +13,10 @@
             <div class="col-md-6">
                 <div class="d-flex justify-content-end mt-4 mb-2">
                     <img src="assets/images/profile-image-placeholder.png" alt="profile-image-placeholder" class="img-fluid profile-image-medium">
-                    <button class="text-bold" mat-button>PROFAUSE</button>
+                    <button class="text-bold" mat-button [mat-menu-trigger-for]="profileMenu">PROFAUSE</button>
+                    <mat-menu #profileMenu>
+                        <button mat-menu-item routerLink="/user/change-password">Change Password</button>
+                    </mat-menu>
                     <button class="text-bold" (click)="signOut()" mat-button>Sign Out</button>
                 </div>
             </div>
