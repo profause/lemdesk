@@ -1,0 +1,39 @@
+<app-bar></app-bar>
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="background-color: transparent;">
+            <li class="breadcrumb-item">
+                <li class="breadcrumb-item active" aria-current="page">departments</li>
+        </ol>
+    </nav>
+    <div class="d-flex justify-content-between align-items-center bg-white pr-3 pt-1 pl-3 mb-4">
+        <!-- <div class="form-group"> -->
+        <mat-form-field style="width: 70%; font-size: 16px;">
+            <mat-label>Search</mat-label>
+            <input matInput autofocus [formControl]="searchInput" type="text" id="searchInput" name="searchInput" required minlength="4" autocomplete="off" aria-describedby="searchHint">
+        </mat-form-field>
+        <div (click)="openAddDepartmentDialog({})">
+            <img src="assets/images/plus_icon.png" height="30" width="30" alt="">
+            <!-- </div> -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 mb-3" *ngFor="let department of departmentList$ | async; let i=index;">
+            <div class="card-1 pt-3" style="min-height: 140px;">
+                <h4 class="text-center text-bold">{{department.name}}</h4>
+                <div style="position: absolute; bottom: 0; right: 0; margin-right: 20px; margin-bottom: 8px;" class="d-flex justify-content-end align-items-center">
+                    <div class="p-1">
+                        <img src="assets/images/view_icon.png" height="24" width="24" alt="">
+                    </div>
+                    <div class="p-1" (click)="openAddDepartmentDialog(department)">
+                        <img src="assets/images/edit_icon.png" height="24" width="24" alt="">
+                    </div>
+                    <div class="p-1" (click)="deleteDepartment(department)">
+                        <img src="assets/images/delete_icon.png" height="24" width="24" alt="">
+                    </div>
+                </div>
+                <img src="assets/images/department_icon.png" style="position: absolute; bottom: 0; left: 1;" width="200" alt="">
+            </div>
+        </div>
+    </div>
+</div>

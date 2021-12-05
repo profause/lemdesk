@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DepartmentComponent } from './department/department.component';
 import { AppbarComponent } from './shared/components/appbar/appbar.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { RoleGuard } from './shared/guards/role.guard';
@@ -20,6 +21,10 @@ const routes: Routes = [
     path: 'users', component: UserComponent,canActivate: [AuthGuard,RoleGuard],
     data: {roles: ['ADMIN']}
   },
+  {
+    path: 'departments', component: DepartmentComponent,canActivate: [AuthGuard,RoleGuard],
+    data: {roles: ['ADMIN']}
+  },
   { path: "**", redirectTo: "home" },
 ];
 
@@ -32,5 +37,6 @@ export const AppRoutingComponents = [
   LoginComponent,
   HomeComponent,
   UserComponent,
-  AddUserComponent
+  AddUserComponent,
+  DepartmentComponent
 ];
