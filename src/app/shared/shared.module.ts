@@ -10,12 +10,16 @@ import { FormBuilderService } from './services/form-builder.service';
 import { LocalAuthService } from './services/local-auth.service';
 import { WindowService } from './services/window.service';
 import { AppbarComponent } from './components/appbar/appbar.component';
+import { MaterialAlertDialogComponent } from './components/material-alert-dialog/material-alert-dialog.component';
+import { AuthGuard } from './guards/auth.guard';
+import { RoleGuard } from './guards/role.guard';
 
 
 
 @NgModule({
   declarations: [
     MaterialProgressDialogComponent,
+    MaterialAlertDialogComponent,
     ConfirmDialogComponent,
     InputDialogComponent,
   ],
@@ -25,6 +29,7 @@ import { AppbarComponent } from './components/appbar/appbar.component';
   ],
   entryComponents:[
     MaterialProgressDialogComponent,
+    MaterialAlertDialogComponent,
     ConfirmDialogComponent,
     InputDialogComponent,
     AppbarComponent
@@ -35,6 +40,8 @@ import { AppbarComponent } from './components/appbar/appbar.component';
     LocalAuthService,
     DataService,
     FormBuilderService,
+    AuthGuard,
+    RoleGuard
   ]
 })
 export class SharedModule { }

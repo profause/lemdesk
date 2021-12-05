@@ -1,24 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { OverviewComponent } from './overview/overview.component';
+import { ResolverOverviewComponent } from './resolver-overview/resolver-overview.component';
 import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { AdminOverviewComponent } from './admin-overview/admin-overview.component';
+import { RoleGuard } from '../shared/guards/role.guard';
 
 const routes: Routes = [
   {
     path: "dashboard",
-    component: DashboardComponent, children: [
+    component: DashboardComponent, canActivate: [],
+    data: {roles: ['ADMIN']} ,children: [
       {
-        path: "overview",
-        component: OverviewComponent,
+        path: "resolver-overview",
+        component: ResolverOverviewComponent,
       },
       {
         path: "admin-overview",
         component: AdminOverviewComponent,
       },
-      { path: "**", redirectTo: "overview" },
+      { path: "**", redirectTo: "resolver-overview" },
     ]
   }
 ];
@@ -36,6 +38,6 @@ const routes: Routes = [
 export class DashboardModule { }
 export const DashboardRoutingComponents = [
   DashboardComponent,
-  OverviewComponent,
+  ResolverOverviewComponent,
   AdminOverviewComponent
 ]

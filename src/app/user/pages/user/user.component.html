@@ -12,8 +12,8 @@
             <mat-label>Search</mat-label>
             <input matInput autofocus [formControl]="searchInput" type="text" id="searchInput" name="searchInput" required minlength="4" autocomplete="off" aria-describedby="searchHint">
         </mat-form-field>
-        <div>
-            <img src="assets/images/add_user_icon.png" height="40" width="40" alt="">
+        <div (click)="openAddUserDialog({})">
+            <img src="assets/images/add_user_icon.png" height="30" width="30" alt="">
             <!-- </div> -->
         </div>
     </div>
@@ -28,15 +28,35 @@
                                 <th class="text-bold" scope="col">
                                     User name
                                 </th>
-                                <th class="text-bold">First name</th>
-                                <th class="text-bold">Last name</th>
+                                <th class="text-bold">Full name</th>
                                 <th class="text-bold">Department</th>
                                 <th class="text-bold">Role</th>
+                                <th></th>
                             </tr>
                         </thead>
+                        <tbody>
+                            <tr class="animate__animated animate__fadeIn" *ngFor="let user of userList$ | async; let i=index;">
+                                <td class="align-middle">{{user?.id}}</td>
+                                <td class="align-middle">{{user?.username}}</td>
+                                <td class="align-middle">{{user.fullname}}</td>
+                                <td class="align-middle">{{user.department}}</td>
+                                <td class="align-middle">{{user.role}}</td>
+                                <td class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <img src="assets/images/view_icon.png" height="24" width="24" alt="">
+                                    </div>
+                                    <div (click)="openAddUserDialog(user)">
+                                        <img src="assets/images/edit_icon.png" height="24" width="24" alt="">
+                                    </div>
+                                    <div (click)="deleteUser(user)">
+                                        <img src="assets/images/delete_icon.png" height="24" width="24" alt="">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                     <div class="d-flex justify-content-center mt-2 mb-3">
-                        <mat-spinner [hidden]="isLoading" class="align-self-center" mode="indeterminate" [diameter]="35" [strokeWidth]="2">
+                        <mat-spinner [hidden]="!isLoading" class="align-self-center" mode="indeterminate" [diameter]="35" [strokeWidth]="2">
                         </mat-spinner>
                     </div>
                 </div>

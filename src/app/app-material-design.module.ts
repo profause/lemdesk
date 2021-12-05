@@ -17,14 +17,13 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { Observable } from 'rxjs';
-import { DialogOptions, DialogService } from './shared/services/dialog.service';
+import { DialogOptions, DialogService, DialogType } from './shared/services/dialog.service';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatRadioModule} from '@angular/material/radio';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
-
-
+import { MaterialAlertDialogComponent } from './shared/components/material-alert-dialog/material-alert-dialog.component';
 
 const materialDesignComponents = [
     MatButtonModule,
@@ -97,5 +96,22 @@ export class AppMaterialDesignModule {
             console.log('The dialog was closed');
         });
         return this.dialogService.getMessage();
+    }
+
+    showAlertDialog(type: DialogType, title: string, message: string): Observable<any> {
+        this.dialogRef = this.matDialog.open(MaterialAlertDialogComponent, {
+            width: '400px',
+            height: '260px',
+            data: { dialogTitle: title, dialogMessage: message, dialogType: type },
+            disableClose: true,
+            autoFocus: true
+        });
+
+        this.dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+        });
+
+        return this.dialogRef.afterClosed();
+
     }
 }

@@ -1,0 +1,80 @@
+<div class="d-flex justify-content-between mb-3">
+    <h2 mat-dialog-title>{{dialogOptions.title}}</h2>
+    <button mat-icon-button (click)="cancel()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<!-- <pre>{{userFormGroup.value | json}}</pre> -->
+<div mat-dialog-content>
+    <form [formGroup]="userFormGroup" #userForm="ngForm" name="userFormGroup">
+        <div class="form-row card-shadow bg-white mb-2 pl-2 pr-2">
+            <div class="col-md-6" style="margin-bottom: 15px; margin-top: -5px;">
+                <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                    <mat-label style="font-size: 16px;">Full Name</mat-label>
+                    <input matInput required formControlName="fullname" type="text" name="fullname" id="fullname" autocomplete="off" style="font-size: 18px;" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-6" style="margin-bottom: 15px; margin-top: -5px;">
+                <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                    <mat-label style="font-size: 16px;">Email</mat-label>
+                    <input matInput required formControlName="email" type="email" name="email" id="email" autocomplete="off" style="font-size: 18px;" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="form-row card-shadow bg-white mb-2 pl-2 pr-2">
+            <div class="col-md-6" style="margin-bottom: 15px; margin-top: -5px;">
+                <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                    <mat-label style="font-size: 16px;">User Name</mat-label>
+                    <input matInput required formControlName="username" type="text" name="username" id="username" autocomplete="off" style="font-size: 18px;" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-6" style="margin-bottom: 15px; margin-top: -5px;">
+                <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                    <mat-label style="font-size: 16px;">Password</mat-label>
+                    <input matInput formControlName="password" type="text" name="password" id="password" autocomplete="off" style="font-size: 18px;" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="form-row card-shadow bg-white mb-2 pl-2 pr-2">
+            <div class="col-md-6" style="margin-bottom: 15px; margin-top: -5px;">
+                <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                    <mat-label style="font-size: 16px;">Role</mat-label>
+                    <!-- <input matInput required formControlName="username" type="text" name="username" id="username" autocomplete="off" style="font-size: 18px;" /> -->
+                    <mat-select required formControlName="role" name="role" id="role" style="font-size: 18px;">
+                        <mat-option value="ADMIN">
+                            ADMIN
+                        </mat-option>
+                        <mat-option value="RESOLVER">
+                            RESOLVER
+                        </mat-option>
+                        <mat-option value="USER">
+                            USER
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6" style="margin-bottom: 15px; margin-top: -5px;">
+                <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                    <mat-label style="font-size: 16px;">Department</mat-label>
+                    <!-- <input matInput required formControlName="department" type="text" name="password" id="password" autocomplete="off" style="font-size: 18px;" /> -->
+                    <mat-select required formControlName="department" name="department" id="department" style="font-size: 18px;">
+                        <mat-option *ngFor="let department of departmentList$ | async" [value]="department.name">
+                            {{department.name}}
+                        </mat-option>
+                        <mat-option value="USER">
+                            USER
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+    <div class="col-md-12 d-flex justify-content-center mt-2 mb-3">
+        <mat-spinner [hidden]="!isLoading" class="align-self-center" mode="indeterminate" [diameter]="35" [strokeWidth]="2">
+        </mat-spinner>
+    </div>
+</div>
+<div mat-dialog-actions align="end">
+    <button style="font-size: 18px;" mat-button (click)="cancel()">Cancel</button>
+    <button [disabled]="!userForm.valid || isLoading" (click)="save()" style="font-size: 18px;" mat-button cdkFocusInitial>Save</button>
+</div>

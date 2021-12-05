@@ -1,11 +1,189 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { User } from '../models/user.interface';
+import { LocalAuthService } from './local-auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BackendService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+    private localAuth: LocalAuthService,) { }
 
+
+  public login(user: any): Observable<any> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+    });
+
+    const id = new Date().getTime().toString()
+    user.id = id;
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data: {
+          username: user.username,
+          email: 'profaust@gmail.com',
+          id: '669c7af378674e086526 ',
+          fullname: 'Emmanuel Mensah',
+          role: 'ADMIN',
+          department: 'IT OPERATIONS',
+          //permissions: [],
+          token:'sometoken'
+        }
+
+      }
+    )
+
+    return this.httpClient.post<any>(environment.backend.baseUrl + '/users/login', user, {
+      headers: httpHeaders,
+    });
+  }
+
+  public getUserList(): Observable<any> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
+    });
+
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data: [
+          {
+            username: 'profause',
+            email: 'profaust@gmail.com',
+            id: '669c7af378674e086526 ',
+            fullname: 'Emmanuel Mensah',
+            role: 'ADMIN',
+            department: 'IT OPERATIONS',
+          }
+        ]
+      }
+    )
+
+    return this.httpClient.get<any>(environment.backend.baseUrl + '/users', {
+      headers: httpHeaders,
+    });
+  }
+
+  public addUser(user: User): Observable<any> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
+    });
+
+    const id = new Date().getTime().toString()
+    user.id = id;
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data: user
+
+      }
+    )
+
+    return this.httpClient.post<any>(environment.backend.baseUrl + '/users/create', user, {
+      headers: httpHeaders,
+    });
+  }
+
+  public updateUser(user: User): Observable<any> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
+    });
+
+    const id = new Date().getTime().toString()
+    user.id = id;
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data: user
+
+      }
+    )
+
+    return this.httpClient.put<any>(environment.backend.baseUrl + '/users/' + user.id, user, {
+      headers: httpHeaders,
+    });
+  }
+
+  public deleteUser(id: string): Observable<any> {
+
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
+    });
+
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data: []
+      }
+    )
+
+    return this.httpClient.delete<any>(environment.backend.baseUrl + '/users/' + id, {
+      headers: httpHeaders,
+    });
+  }
+
+  public getDepartmentList(): Observable<any> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
+    });
+
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data: [
+          {
+            name: 'IT OPERATIONS',
+            description: 'IT Operations',
+            operations: 'desktop support,user account',
+            id: '669c7af378674e086526 ',
+          },
+          {
+            name: 'STUDENT SUPPORT UNIT',
+            description: 'Students Support Unit',
+            operations: 'students support,general support',
+            id: '669c7af377674e086526 ',
+          },
+          {
+            name: 'CASH OFFICE',
+            description: 'Cash and fees Operations',
+            operations: 'fees operations,general support',
+            id: '669c7af308674e086526 ',
+          }
+          ,{
+            name: 'EXAMINATION UNIT',
+            description: 'Examiniation Operations',
+            operations: 'Examination support,general support',
+            id: '669c7af379674e086526 ',
+          }
+        ]
+      }
+    )
+
+    return this.httpClient.get<any>(environment.backend.baseUrl + '/departments', {
+      headers: httpHeaders,
+    });
+  }
 }
+

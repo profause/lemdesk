@@ -5,7 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 @Component({
   selector: 'app-material-progress-dialog',
   templateUrl: './material-progress-dialog.component.html',
-  styleUrls: ['./material-progress-dialog.component.css']
+  styleUrls: ['./material-progress-dialog.component.scss']
 })
 
 export class MaterialProgressDialogComponent implements OnInit {

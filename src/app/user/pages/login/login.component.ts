@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { AppMaterialDesignModule } from 'src/app/app-material-design.module';
 import { BackendService } from 'src/app/shared/services/backend.service';
 import { DataService } from 'src/app/shared/services/data.service';
@@ -37,6 +38,31 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     let formData = this.loginFormGroup.value
     let t = this;
+
+    this.backend.login(formData).
+      pipe(takeUntil(this.unSubscriptioNotifier))
+      .subscribe({
+        next: (res) => {
+          t.isLoading = false;
+          t.localAuth.setUser(res.data);
+          switch (res.data.role) {
+            case 'ADMIN':
+              t.router.navigate(['/dashboard/admin-overview']);
+              break;
+            case 'USER':
+              t.router.navigate(['/dashboard/user-overview']);
+              break;
+            case 'RESOLVER':
+              t.router.navigate(['/dashboard/resolver-overview']);
+              break;
+            default:
+              t.router.navigate(['/dashboard']);
+          }
+
+
+        }
+      })
+
   }
 
   ngOnDestroy(): void {

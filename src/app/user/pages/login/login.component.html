@@ -3,11 +3,11 @@
         <div class="col-md-5 offset-md-3 mx-auto">
             <div class="card-2 p-3">
                 <form [formGroup]="loginFormGroup" #loginForm="ngForm" name="loginFormGroup" (ngSubmit)="loginForm.valid && login()">
-                    <h4 class="title-text">Login with your username and password</h4>
+                    <h4 class="text-bold">Login with your username and password</h4>
                     <div class="form-group mt-0 mb-0">
                         <mat-form-field appearance="outline" style="width: 100%; font-size: 16px;">
                             <mat-label>Username</mat-label>
-                            <input matInput placeholder="username" formControlName="username" type="text" id="username" name="username" required autofocus minlength="4" autocomplete="off" [ngClass]="{ 'is-invalid':loginForm.submitted && loginFormGroup.get('username')?.hasError('required') }"
+                            <input matInput placeholder="username" formControlName="username" class="text-bold" type="text" id="username" name="username" required autofocus minlength="4" autocomplete="off" [ngClass]="{ 'is-invalid':loginForm.submitted && loginFormGroup.get('username')?.hasError('required') }"
                                 aria-describedby="usernameHint">
                         </mat-form-field>
 
@@ -24,7 +24,7 @@
                     <div class="form-group mt-0 mb-0">
                         <mat-form-field appearance="outline" style="width: 100%; font-size: 16px;">
                             <mat-label>Password</mat-label>
-                            <input matInput placeholder="password" formControlName="password" type="password" id="password" name="password" required autofocus minlength="4" autocomplete="off" [ngClass]="{ 'is-invalid':loginForm.submitted && loginFormGroup.get('password')?.hasError('required') }"
+                            <input matInput placeholder="password" formControlName="password" type="password" class="text-bold" id="password" name="password" required autofocus minlength="4" autocomplete="off" [ngClass]="{ 'is-invalid':loginForm.submitted && loginFormGroup.get('password')?.hasError('required') }"
                                 aria-describedby="passwordHint">
                         </mat-form-field>
                         <div *ngIf="loginForm.submitted && loginFormGroup.get('password')?.hasError('required')" class="invalid-feedback animate__animated animate__bounceIn">
@@ -37,7 +37,7 @@
                                 password</small>
                         </div>
                     </div>
-                    <button mat-flat-button type="submit" [disabled]="isLoading || !loginForm.valid" style="font-size: 18px; font-family: avenir-roman; height: 44px;" class="btn btn-block btn-primary mt-2">Login</button>
+                    <button mat-flat-button color="primary" type="submit" [disabled]="isLoading || !loginForm.valid" style="font-size: 18px; font-family: avenir-roman; height: 44px;" class="btn btn-block btn-primary mt-2 color-white">Login</button>
                     <div class="d-flex justify-content-center mt-2 mb-3">
                         <button mat-button color="accent">Can't login</button>
                     </div>
@@ -47,7 +47,7 @@
                     </div>
                 </form>
             </div>
-            <p class="mt-4 subtitle-text text-center">Urgency does not warrant changing methods that work for methods that do not work - Body of Lies movie (2008)</p>
+            <p color="accent" class="mt-4 subtitle-text text-center">Urgency does not warrant changing methods that work for methods that do not work - Body of Lies movie (2008)</p>
         </div>
     </div>
 </div>

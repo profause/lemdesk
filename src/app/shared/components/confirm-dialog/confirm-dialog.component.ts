@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Inject, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { DialogOptions, DialogService, DialogButton } from '../../services/dialog.service';
@@ -6,7 +6,8 @@ import { DialogOptions, DialogService, DialogButton } from '../../services/dialo
 @Component({
   selector: 'app-confirm-dialog',
   templateUrl: './confirm-dialog.component.html',
-  styleUrls: ['./confirm-dialog.component.css']
+  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./confirm-dialog.component.scss']
 })
 
 export class ConfirmDialogComponent implements OnInit, OnDestroy {
