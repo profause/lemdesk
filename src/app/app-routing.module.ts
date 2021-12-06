@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddDepartmentComponent } from './department/add-department/add-department.component';
 import { DepartmentComponent } from './department/department.component';
+import { AddServiceTicketComponent } from './service-management/add-service-ticket/add-service-ticket.component';
+import { ServiceTicketComponent } from './service-management/service-ticket/service-ticket.component';
 import { AppbarComponent } from './shared/components/appbar/appbar.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { RoleGuard } from './shared/guards/role.guard';
@@ -48,5 +50,5 @@ export const AppRoutingComponents = [
   DepartmentComponent,
   AddDepartmentComponent,
   ChangePasswordComponent,
-  ResetPasswordComponent
+  ResetPasswordComponent,
 ];

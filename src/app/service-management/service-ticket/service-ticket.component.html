@@ -1,0 +1,186 @@
+<div class="container overflow-hidden">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="background-color: transparent;">
+            <li class="breadcrumb-item">
+                <li class="breadcrumb-item active" aria-current="page">service tickets</li>
+        </ol>
+    </nav>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="d-flex justify-content-start">
+                <a [routerLink]="['../requests']" [queryParams]="{tab: 0}" [routerLinkActive]="['active-tab']" [routerLinkActiveOptions]="{exact: true}" matRipple class="d-flex justify-content-around align-items-middle left-tab-button">
+                    <h4 class="title-text mt-2">My Tickets</h4>
+                    <div class="badge mt-2">
+                        <h5 class="subtitle-text">20</h5>
+                    </div>
+                </a>
+                <a [routerLink]="['../requests']" [queryParams]="{tab: 1}" [routerLinkActive]="['active-tab']" [routerLinkActiveOptions]="{exact: true}" matRipple class="d-flex justify-content-around align-items-middle middle-tab-button">
+                    <h4 class="title-text mt-2">Recently Closed</h4>
+                    <div class="badge mt-2">
+                        <h5 class="subtitle-text">20</h5>
+                    </div>
+                </a>
+                <a [routerLink]="['../requests']" [queryParams]="{tab: 2}" [routerLinkActive]="['active-tab']" [routerLinkActiveOptions]="{exact: true}" matRipple class="d-flex justify-content-around align-items-middle right-tab-button">
+                    <h4 class="title-text mt-2">Work Actions</h4>
+                    <div class="badge mt-2">
+                        <h5 class="subtitle-text">20</h5>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="d-flex justify-content-end">
+                <a [routerLink]="['../report-issue']" matRipple class="d-flex justify-content-around align-items-middle left-button">
+                    <h4 class="title-text mt-2">Report an Issue</h4>
+                    <div class="badge mt-2">
+                        <h5 class="subtitle-text">+</h5>
+                    </div>
+                </a>
+                <a [routerLink]="['../request-service']" matRipple class="d-flex justify-content-around align-items-middle right-button">
+                    <h4 class="title-text mt-2">Submit a Request</h4>
+                    <div class="badge mt-2">
+                        <h5 class="subtitle-text">+</h5>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="swiper-container" [swiper]="swiperConfig">
+                <div class="swiper-wrapper mb-4">
+                    <div class="swiper-slide" [attr.data-swiper-slide-index]="0">
+                        <div class="table-responsive bg-white" style="max-height: 620px;">
+                            <table style="font-size: 16px;" class="table bg-white table-borderless table-striped table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Ticket Id</th>
+                                        <th class="text-bold" scope="col">
+                                            Title
+                                        </th>
+                                        <th class="text-bold">Initiator</th>
+                                        <th class="text-bold">Assigned To</th>
+                                        <th class="text-bold">Status</th>
+                                        <th class="text-bold">Date</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="animate__animated animate__fadeIn" *ngFor="let ticket of serviceTicketList$ | async; let i=index;">
+                                        <td class="align-middle">{{ticket?.id}}</td>
+                                        <td class="align-middle">{{ticket?.title}}</td>
+                                        <td class="align-middle">{{ticket.initiator.name}}</td>
+                                        <td class="align-middle">{{ticket.assignedTo.name}}</td>
+                                        <td class="align-middle">{{ticket.status}}</td>
+                                        <td class="align-middle">{{ticket.date}}</td>
+                                        <td class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <img src="assets/images/view_icon.png" height="24" width="24" alt="">
+                                            </div>
+                                            <div>
+                                                <img src="assets/images/edit_icon.png" height="24" width="24" alt="">
+                                            </div>
+                                            <div>
+                                                <img src="assets/images/delete_icon.png" height="24" width="24" alt="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-center mt-2 mb-3">
+                                <mat-spinner [hidden]="!isLoading" class="align-self-center" mode="indeterminate" [diameter]="35" [strokeWidth]="2">
+                                </mat-spinner>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" [attr.data-swiper-slide-index]="0">
+                        <div class="table-responsive bg-white" style="max-height: 620px;">
+                            <table style="font-size: 16px;" class="table bg-white table-borderless table-striped table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Ticket Id</th>
+                                        <th class="text-bold" scope="col">
+                                            Title
+                                        </th>
+                                        <th class="text-bold">Initiator</th>
+                                        <th class="text-bold">Assigned To</th>
+                                        <th class="text-bold">Status</th>
+                                        <th class="text-bold">Date</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="animate__animated animate__fadeIn" *ngFor="let ticket of serviceTicketRecentlyClosedList$ | async; let i=index;">
+                                        <td class="align-middle">{{ticket?.id}}</td>
+                                        <td class="align-middle">{{ticket?.title}}</td>
+                                        <td class="align-middle">{{ticket.initiator.name}}</td>
+                                        <td class="align-middle">{{ticket.assignedTo.name}}</td>
+                                        <td class="align-middle">{{ticket.status}}</td>
+                                        <td class="align-middle">{{ticket.date}}</td>
+                                        <td class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <img src="assets/images/view_icon.png" height="24" width="24" alt="">
+                                            </div>
+                                            <div>
+                                                <img src="assets/images/edit_icon.png" height="24" width="24" alt="">
+                                            </div>
+                                            <div>
+                                                <img src="assets/images/delete_icon.png" height="24" width="24" alt="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-center mt-2 mb-3">
+                                <mat-spinner [hidden]="!isLoading" class="align-self-center" mode="indeterminate" [diameter]="35" [strokeWidth]="2">
+                                </mat-spinner>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" [attr.data-swiper-slide-index]="0">
+                        <div class="table-responsive bg-white" style="max-height: 620px;">
+                            <table style="font-size: 16px;" class="table bg-white table-borderless table-striped table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Ticket Id</th>
+                                        <th class="text-bold" scope="col">
+                                            Title
+                                        </th>
+                                        <th class="text-bold">Initiator</th>
+                                        <th class="text-bold">Assigned To</th>
+                                        <th class="text-bold">Status</th>
+                                        <th class="text-bold">Date</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="animate__animated animate__fadeIn" *ngFor="let ticket of pendingServiceTicketList$ | async; let i=index;">
+                                        <td class="align-middle">{{ticket?.id}}</td>
+                                        <td class="align-middle">{{ticket?.title}}</td>
+                                        <td class="align-middle">{{ticket.initiator.name}}</td>
+                                        <td class="align-middle">{{ticket.assignedTo.name}}</td>
+                                        <td class="align-middle">{{ticket.status}}</td>
+                                        <td class="align-middle">{{ticket.date}}</td>
+                                        <td class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <img src="assets/images/view_icon.png" height="24" width="24" alt="">
+                                            </div>
+                                            <div>
+                                                <img src="assets/images/edit_icon.png" height="24" width="24" alt="">
+                                            </div>
+                                            <div>
+                                                <img src="assets/images/delete_icon.png" height="24" width="24" alt="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-center mt-2 mb-3">
+                                <mat-spinner [hidden]="!isLoading" class="align-self-center" mode="indeterminate" [diameter]="35" [strokeWidth]="2">
+                                </mat-spinner>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

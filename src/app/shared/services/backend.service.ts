@@ -35,7 +35,7 @@ export class BackendService {
           role: 'ADMIN',
           department: 'IT OPERATIONS',
           //permissions: [],
-          token:'sometoken'
+          token: 'sometoken'
         }
 
       }
@@ -237,7 +237,7 @@ export class BackendService {
             operations: 'fees operations,general support',
             id: '669c7af308674e086526 ',
           }
-          ,{
+          , {
             name: 'EXAMINATION UNIT',
             description: 'Examiniation Operations',
             operations: 'Examination support,general support',
@@ -259,7 +259,7 @@ export class BackendService {
       'Cache-Control': 'no-cache',
       'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
     });
-  
+
     return of(
       {
         code: "000",
@@ -267,8 +267,172 @@ export class BackendService {
         data: []
       }
     )
-    
+
     return this.httpClient.put<any>(environment.backend.baseUrl + '/users/change-password/' + formData.id, formData, {
+      headers: httpHeaders,
+    });
+  }
+
+  public getServiceTicketsAssignedToMe(userId: string): Observable<any> {
+
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
+    });
+
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data: [
+          {
+            title: 'Service Ticket 1',
+            description: 'Service Ticket 1 description',
+            id: '669c7af378674e086526 ',
+            date: '2019-01-01',
+            status: 'OPEN',
+            assignedTo: {
+              name: 'Emmanuel Mensah',
+              id: '669c7af37867086526 ',
+            },
+            initiator: {
+              name: 'John Doe',
+              id: '669c7af37867086526 ',
+            },
+            impact: 'ONLY_ME',
+            urgency: 'LOW',
+            category: 'GENERAL',
+            type: 'REQUEST',
+          }
+        ]
+      }
+    )
+
+    return this.httpClient.get<any>(environment.backend.baseUrl + '/service-tickets/assigned/' + userId, {
+      headers: httpHeaders,
+    });
+  }
+
+  public getServiceTicketsRecentlyClosed(userId: string): Observable<any> {
+
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
+    });
+
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data: [
+          {
+            title: 'Service Ticket 1',
+            description: 'Service Ticket 1 description',
+            id: '669c7af378674e086526 ',
+            date: '2019-01-01',
+            status: 'CLOSED',
+            assignedTo: {
+              name: 'Emmanuel Mensah',
+              id: '669c7af37867086526 ',
+            },
+            initiator: {
+              name: 'John Doe',
+              id: '669c7af37867086526 ',
+            },
+            impact: 'ONLY_ME',
+            urgency: 'LOW',
+            category: 'GENERAL',
+            type: 'REQUEST',
+          }
+        ]
+      }
+    )
+
+    return this.httpClient.get<any>(environment.backend.baseUrl + '/service-tickets/recently-closed/' + userId, {
+      headers: httpHeaders,
+    });
+  }
+
+  public getPendingServiceTickets(userId: string): Observable<any> {
+
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
+    });
+
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data: [
+          {
+            title: 'Service Ticket 1',
+            description: 'Service Ticket 1 description',
+            id: '669c7af378674e086526 ',
+            date: '2019-01-01',
+            status: 'PENDING',
+            assignedTo: {
+              name: 'Emmanuel Mensah',
+              id: '669c7af37867086526 ',
+            },
+            initiator: {
+              name: 'John Doe',
+              id: '669c7af37867086526 ',
+            },
+            impact: 'ONLY_ME',
+            urgency: 'LOW',
+            category: 'GENERAL',
+            type: 'REQUEST',
+          }
+        ]
+      }
+    )
+
+    return this.httpClient.get<any>(environment.backend.baseUrl + '/service-tickets/pending/' + userId, {
+      headers: httpHeaders,
+    });
+  }
+
+  public getServiceTicketById(id: string): Observable<any> {
+
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
+    });
+
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data:
+        {
+          title: 'Service Ticket 1',
+          description: 'Service Ticket 1 description',
+          id: '669c7af378674e086526 ',
+          date: '2019-01-01',
+          status: 'PENDING',
+          assignedTo: {
+            name: 'Emmanuel Mensah',
+            id: '669c7af37867086526 ',
+          },
+          initiator: {
+            name: 'John Doe',
+            id: '669c7af37867086526 ',
+          },
+          impact: 'ONLY_ME',
+          urgency: 'LOW',
+          category: 'GENERAL',
+          type: 'REQUEST',
+        }
+
+      }
+    )
+
+    return this.httpClient.get<any>(environment.backend.baseUrl + '/service-tickets/' + id, {
       headers: httpHeaders,
     });
   }
