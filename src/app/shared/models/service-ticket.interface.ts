@@ -2,7 +2,7 @@ export interface ServiceTicket {
     title?: string;
     description?: string;
     id?: string | undefined
-    initiator?: string
+    initiator?: any;
     assignedTo?: any
     status?: string
     date?: string
@@ -11,6 +11,7 @@ export interface ServiceTicket {
     urgency?: string
     attachments?: string[],
     type?: string,
+    createdBy?: string,
     createdDate?: string,
     modifiedDate?: string,
 }

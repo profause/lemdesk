@@ -56,12 +56,24 @@
                         </div>
                     </div>
                     <div class="form-row pl-2 pr-2">
+
                         <div class="col-md-6" style="margin-bottom: 15px; margin-top: -5px;">
+                            <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                                <mat-label style="font-size: 16px;">Assign To</mat-label>
+                                <!-- <input matInput required formControlName="department" type="text" name="password" id="password" autocomplete="off" style="font-size: 18px;" /> -->
+                                <mat-select required formControlName="assignedTo" name="assignedTo" id="assignedTo" style="font-size: 18px;">
+                                    <mat-option *ngFor="let department of departmentList$ | async" [value]="department.name">
+                                        {{department.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <!-- <div class="col-md-6" style="margin-bottom: 15px; margin-top: -5px;">
                             <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
                                 <mat-label style="font-size: 16px;">Assign To</mat-label>
                                 <input matInput required formControlName="assignedTo" type="text" name="assignedTo" id="assignedTo" autocomplete="off" style="font-size: 18px;" />
                             </mat-form-field>
-                        </div>
+                        </div> -->
                         <div class="col-md-6" style="margin-bottom: 15px; margin-top: -5px;">
                             <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
                                 <mat-label style="font-size: 16px;">Urgency</mat-label>

@@ -1,0 +1,127 @@
+<div class="container overflow-hidden">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="background-color: transparent;">
+            <li class="breadcrumb-item">
+                <li class="breadcrumb-item active" aria-current="page">request-service</li>
+        </ol>
+    </nav>
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <div class="d-flex justify-content-end">
+                <a [routerLink]="['../../report-issue']" matRipple class="d-flex justify-content-around align-items-middle left-button">
+                    <h4 class="title-text mt-2">Report an Issue</h4>
+                    <div class="badge mt-2">
+                        <h5 class="subtitle-text">+</h5>
+                    </div>
+                </a>
+                <a [routerLink]="['../../request-service']" matRipple class="d-flex justify-content-around align-items-middle right-button">
+                    <h4 class="title-text mt-2">Submit a Request</h4>
+                    <div class="badge mt-2">
+                        <h5 class="subtitle-text">+</h5>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <div class="table-responsive card-1 pl-3 pt-3 pb-3 pr-3" style="max-height: 620px;">
+                        <h2 class="text-bold ml-2">Ticket Details</h2>
+                        <table style="font-size: 16px;" class="table table-borderless table-striped table-lg">
+                            <tr>
+                                <th>Ticket Id</th>
+                                <td>{{serviceTicket.id}}</td>
+                            </tr>
+                            <tr>
+                                <th>Title</th>
+                                <td>{{serviceTicket.title}}</td>
+                            </tr>
+                            <tr>
+                                <th>Initiator</th>
+                                <td>{{serviceTicket.initiator.name}}</td>
+                            </tr>
+                            <tr>
+                                <th>Assigned To</th>
+                                <td>{{serviceTicket.assignedTo.name}}</td>
+                            </tr>
+                            <tr>
+                                <th>Status</th>
+                                <td>{{serviceTicket.status}}</td>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <td>{{serviceTicket.date}}</td>
+                            </tr>
+                        </table>
+                        <div class="mb-2 ml-2">
+                            <p class="text-bold">Description</p>
+                            <p class="title-text">{{serviceTicket.description}}</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="d-flex justify-content-start">
+                                    <a [routerLink]="['../service-ticket',serviceTicket?.id]" class="p-1">
+                                        <img src="assets/images/view_icon.png" height="24" width="24" alt="">
+                                    </a>
+                                    <a [routerLink]="['../request-service',serviceTicket?.id]" class="p-1">
+                                        <img src="assets/images/edit_icon.png" height="24" width="24" alt="">
+                                    </a>
+                                    <div class="p-1">
+                                        <img src="assets/images/delete_icon.png" height="24" width="24" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex justify-content-end">
+                                    <div matRipple class="d-flex justify-content-around align-items-middle left-button">
+                                        <h4 class="title-text mt-2">Add Note/Comment</h4>
+                                        <div class="badge mt-2">
+                                            <img src="assets/images/notes_icon.png" height="16" width="16" class="img-fluid" alt="">
+                                        </div>
+                                    </div>
+                                    <div [mat-menu-trigger-for]="statusMenu" matRipple class="d-flex justify-content-around align-items-middle right-button">
+                                        <h4 class="title-text mt-2">Change Status</h4>
+                                        <div class="badge mt-2">
+                                            <img src="assets/images/status_icon.png" height="16" width="16" class="img-fluid" alt="">
+                                        </div>
+                                        <mat-menu #statusMenu>
+                                            <button class="text-bold" mat-menu-item>Open</button>
+                                            <button class="text-bold" mat-menu-item>Pending</button>
+                                            <button class="text-bold" mat-menu-item>Closed</button>
+                                        </mat-menu>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="card-1 p-3" style="max-height: 620px; background-color: #1B485D; color: white;">
+                        <h2 class="text-bold">Comments/Notes</h2>
+                        <div class="mb-2" *ngFor="let comment of serviceTicketCommentList$ | async; let i=index;">
+                            <div class="d-flex justify-content-start align-items-center">
+                                <p class="text-bold m-0 p-0 mr-2">{{comment.createdBy.name}}</p>
+                                <div *ngIf="comment.type=='COMMENT'" [mat-menu-trigger-for]="commentMenu">
+                                    <img src="assets/images/comment_icon.png" height="18" width="18" alt="">
+                                </div>
+                                <div *ngIf="comment.type=='NOTE'" [mat-menu-trigger-for]="commentMenu">
+                                    <img src="assets/images/notes_icon.png" height="18" width="18" alt="">
+                                </div>
+                                <mat-menu #commentMenu>
+                                    <button class="text-bold" mat-menu-item>Edit</button>
+                                    <button class="text-bold" mat-menu-item>Delete</button>
+                                </mat-menu>
+                            </div>
+                            <p class="subtitle-text m-0 p-0">{{comment.text}}</p>
+                            <small class="m-0 p-0">{{comment.createdDate}}</small>
+                        </div>
+                        <div class="d-flex justify-content-center mt-2 mb-3">
+                            <mat-spinner [hidden]="!isLoading" class="align-self-center" mode="indeterminate" [diameter]="35" [strokeWidth]="2">
+                            </mat-spinner>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,7 @@
 <div class="container overflow-hidden">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb" style="background-color: transparent;">
-            <li class="breadcrumb-item">
-                <li class="breadcrumb-item active" aria-current="page">service tickets</li>
+            <li class="breadcrumb-item active" aria-current="page">service tickets</li>
         </ol>
     </nav>
     <div class="row">
@@ -72,12 +71,12 @@
                                         <td class="align-middle">{{ticket.status}}</td>
                                         <td class="align-middle">{{ticket.date}}</td>
                                         <td class="d-flex justify-content-between align-items-center">
-                                            <div>
+                                            <a [routerLink]="['../service-ticket',ticket?.id]">
                                                 <img src="assets/images/view_icon.png" height="24" width="24" alt="">
-                                            </div>
-                                            <div>
+                                            </a>
+                                            <a [routerLink]="['../request-service',ticket?.id]">
                                                 <img src="assets/images/edit_icon.png" height="24" width="24" alt="">
-                                            </div>
+                                            </a>
                                             <div>
                                                 <img src="assets/images/delete_icon.png" height="24" width="24" alt="">
                                             </div>

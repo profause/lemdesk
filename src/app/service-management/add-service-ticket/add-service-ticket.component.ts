@@ -4,6 +4,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Subscription, Subject, BehaviorSubject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AppMaterialDesignModule } from 'src/app/app-material-design.module';
+import { Department } from 'src/app/shared/models/department.interface';
 import { ServiceTicket } from 'src/app/shared/models/service-ticket.interface';
 import { User } from 'src/app/shared/models/user.interface';
 import { BackendService } from 'src/app/shared/services/backend.service';
@@ -29,6 +30,10 @@ export class AddServiceTicketComponent implements OnInit, OnDestroy {
   public categoryList$: Observable<string[]> = new Observable<string[]>();
   public categoryListBehaviour: BehaviorSubject<string[]>;
 
+  public departmentList = new Array<Department>();
+  public departmentList$: Observable<Department[]> = new Observable<Department[]>();
+  public departmentListBehaviour: BehaviorSubject<Department[]>;
+
 
   constructor(public router: Router,
     private activateRoute: ActivatedRoute,
@@ -40,6 +45,8 @@ export class AddServiceTicketComponent implements OnInit, OnDestroy {
     this.categoryListBehaviour = new BehaviorSubject([])
     this.categoryList$ = this.categoryListBehaviour.asObservable();
 
+    this.departmentListBehaviour = new BehaviorSubject([{}])
+    this.departmentList$ = this.departmentListBehaviour.asObservable();
 
     this.authUser = localAuth.getAuthUser();
     this.serviceTicketFormGroup = new FormGroup({
@@ -58,15 +65,33 @@ export class AddServiceTicketComponent implements OnInit, OnDestroy {
     })
   }
 
+  getDepartmentList() {
+    this.isLoading = true;
+    this.backend.getDepartmentList()
+      .pipe(takeUntil(this.unSubscriptioNotifier))
+      .subscribe({
+        next: (response) => {
+          this.isLoading = false
+          if (response.code == '000') {
+            this.departmentList = response.data;
+            this.departmentListBehaviour.next(this.departmentList);
+          }
+        }
+      })
+  }
+
   ngOnInit(): void {
     this.activateRoute.paramMap.subscribe((params: ParamMap) => {
       const id = params.get('id')
       if (id != undefined) {
         this.getServiceTicket(id);
+      }else{
+        //this.router.navigate(['requests'])
       }
     })
 
     this.getServiceCategoryList();
+    this.getDepartmentList();
   }
 
   getServiceCategoryList() {

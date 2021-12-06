@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AdminOverviewComponent } from '../dashboard/admin-overview/admin-overview.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { ResolverOverviewComponent } from '../dashboard/resolver-overview/resolver-overview.component';
+import { ServiceTicketDetailComponent } from './service-ticket-detail/service-ticket-detail.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
         component: AddServiceTicketComponent,
       },
       {
+        path: "service-ticket/:id",
+        component: ServiceTicketDetailComponent,
+      },
+      {
         path: "requests",
         component: ServiceTicketComponent,
       },
@@ -42,7 +47,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-
   ],
   imports: [
     SharedModule,
@@ -54,5 +58,6 @@ export class ServiceManagementModule { }
 export const ServiceManagementRoutingComponents = [
   ServiceTicketComponent,
   AddServiceTicketComponent,
-  ServiceManagementComponent
+  ServiceManagementComponent,
+  ServiceTicketDetailComponent
 ]

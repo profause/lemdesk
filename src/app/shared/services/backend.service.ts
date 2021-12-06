@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { ServiceTicketComponent } from 'src/app/service-management/service-ticket/service-ticket.component';
 import { environment } from 'src/environments/environment';
 import { Department } from '../models/department.interface';
+import { ServiceTicketComment } from '../models/service-ticket-comment.interface';
 import { User } from '../models/user.interface';
 import { LocalAuthService } from './local-auth.service';
 
@@ -32,7 +34,7 @@ export class BackendService {
           email: 'profaust@gmail.com',
           id: '669c7af378674e086526 ',
           fullname: 'Emmanuel Mensah',
-          role: 'ADMIN',
+          role: 'RESOLVER',
           department: 'IT OPERATIONS',
           //permissions: [],
           token: 'sometoken'
@@ -374,6 +376,7 @@ export class BackendService {
             id: '669c7af378674e086526 ',
             date: '2019-01-01',
             status: 'PENDING',
+            createdBy: '669c7af378674e086526',
             assignedTo: {
               name: 'Emmanuel Mensah',
               id: '669c7af37867086526 ',
@@ -436,10 +439,11 @@ export class BackendService {
         data:
         {
           title: 'Service Ticket 1',
-          description: 'Service Ticket 1 description',
+          description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type',
           id: '669c7af378674e086526 ',
           date: '2019-01-01',
           status: 'PENDING',
+          createdBy: '669c7af378674e086526',
           assignedTo: {
             name: 'Emmanuel Mensah',
             id: '669c7af37867086526 ',
@@ -461,5 +465,133 @@ export class BackendService {
       headers: httpHeaders,
     });
   }
+
+
+  public getServiceTicketComments(serviceTicketId: string): Observable<any> {
+
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
+    });
+
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data: [
+          {
+            text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type',
+            id: '669c7af378674e086526 ',
+            serviceTicketId: '669c7af378674e086526a',
+            createdBy: {
+              name: 'Emmanuel Mensah',
+              id: '669c7af37867086526 ',
+            },
+            type: 'NOTE',
+            createdDate: '2019-01-01',
+          },
+          {
+            text: 'Please provide your student ID',
+            id: '669c7af378674e086526 ',
+            serviceTicketId: '669c7af378674e086526a',
+            createdBy: {
+              name: 'Emmanuel Mensah',
+              id: '669c7af37867086526 ',
+            },
+            type: 'COMMENT',
+            createdDate: '2019-01-01',
+          }, {
+            text: 'Kindly contact examination office.',
+            id: '669c7af378674e086526 ',
+            serviceTicketId: '669c7af378674e086526a',
+            createdBy: {
+              name: 'Emmanuel Mensah',
+              id: '669c7af37867086526 ',
+            },
+            type: 'COMMENT',
+            createdDate: '2019-01-01',
+          }
+        ]
+      }
+    )
+
+    return this.httpClient.get<any>(environment.backend.baseUrl + '/service-tickets/comments/' + serviceTicketId, {
+      headers: httpHeaders,
+    });
+  }
+
+  public addServiceTicketComment(comment: ServiceTicketComment): Observable<any> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
+    });
+
+    const id = new Date().getTime().toString()
+    comment.id = id;
+    comment.createdDate = new Date().getTime().toString();
+    comment.createdBy = this.localAuth.getAuthUser().fullname;
+    
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data: comment
+      }
+    )
+
+    return this.httpClient.post<any>(environment.backend.baseUrl + '/service-tickets/comments', comment, {
+      headers: httpHeaders,
+    });
+  }
+
+  public updateServiceTicketComment(comment: ServiceTicketComment): Observable<any> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
+    });
+
+    const id = new Date().getTime().toString()
+    comment.id = id;
+    comment.createdDate = new Date().getTime().toString();
+    comment.createdBy = this.localAuth.getAuthUser().fullname;
+    
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data: comment
+      }
+    )
+
+    return this.httpClient.put<any>(environment.backend.baseUrl + '/service-tickets/comments/'+comment.id, comment, {
+      headers: httpHeaders,
+    });
+  }
+
+  public deleteServiceTicketComment(id: string): Observable<any> {
+
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
+    });
+
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data: []
+      }
+    )
+
+    return this.httpClient.delete<any>(environment.backend.baseUrl + '/service-tickets/comments/' + id, {
+      headers: httpHeaders,
+    });
+  }
 }
+
+
 
