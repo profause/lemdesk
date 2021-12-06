@@ -396,6 +396,31 @@ export class BackendService {
     });
   }
 
+  public getServiceCategoryList(): Observable<any> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
+    });
+
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data: [
+          'FEES',
+          'EXAMINATION',
+          'GENERAL',
+          'ID CARD'
+        ]
+      }
+    )
+
+    return this.httpClient.get<any>(environment.backend.baseUrl + '/service-tickets/categories', {
+      headers: httpHeaders,
+    });
+  }
+
   public getServiceTicketById(id: string): Observable<any> {
 
     const httpHeaders = new HttpHeaders({
