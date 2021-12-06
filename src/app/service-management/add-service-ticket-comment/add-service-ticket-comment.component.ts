@@ -4,39 +4,45 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AppMaterialDesignModule } from 'src/app/app-material-design.module';
-import { Department } from 'src/app/shared/models/department.interface';
+import { ServiceTicketComment } from 'src/app/shared/models/service-ticket-comment.interface';
+import { User } from 'src/app/shared/models/user.interface';
 import { BackendService } from 'src/app/shared/services/backend.service';
-import { DialogButton, DialogOptions, DialogService, DialogType } from 'src/app/shared/services/dialog.service';
-import { AddUserComponent } from 'src/app/user/pages/add-user/add-user.component';
+import { DialogOptions, DialogService, DialogButton, DialogType } from 'src/app/shared/services/dialog.service';
+import { LocalAuthService } from 'src/app/shared/services/local-auth.service';
+import { ServiceTicketComponent } from '../service-ticket/service-ticket.component';
 
 @Component({
-  selector: 'app-add-department',
-  templateUrl: './add-department.component.html',
-  styleUrls: ['./add-department.component.scss']
+  selector: 'app-add-service-ticket-comment',
+  templateUrl: './add-service-ticket-comment.component.html',
+  styleUrls: ['./add-service-ticket-comment.component.scss']
 })
-export class AddDepartmentComponent implements OnInit, OnDestroy {
+export class AddServiceTicketCommentComponent implements OnInit, OnDestroy {
 
   public isLoading = false;
   private unSubscriptioNotifier = new Subject();
-  public departmentFormGroup: FormGroup;
-  public department: Department
-  constructor(public dialogRef: MatDialogRef<AddUserComponent>,
+  public serviceTicketCommentFormGroup: FormGroup;
+  public serviceTicketComment: ServiceTicketComment
+  public authUser: User;
+  constructor(public dialogRef: MatDialogRef<AddServiceTicketCommentComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogOptions: DialogOptions,
     private backend: BackendService,
     private appMaterialComponent: AppMaterialDesignModule,
+    private localAuth: LocalAuthService,
     private dialogService: DialogService,) {
 
-    this.department = dialogOptions.data || {};
-    this.departmentFormGroup = new FormGroup({
-      id: new FormControl(this.department.id, [Validators.nullValidator]),
-      name: new FormControl(this.department.name, [Validators.required, Validators.minLength(5)]),
-      description: new FormControl(this.department.description, [Validators.required]),
-      operations: new FormControl(this.department.operations, [Validators.nullValidator]),
+    this.authUser = this.localAuth.getAuthUser();
+    this.serviceTicketComment = dialogOptions.data || {};
+    this.serviceTicketCommentFormGroup = new FormGroup({
+      id: new FormControl(this.serviceTicketComment.id, [Validators.nullValidator]),
+      text: new FormControl(this.serviceTicketComment.text, [Validators.required, Validators.minLength(5)]),
+      type: new FormControl(this.serviceTicketComment.type, [Validators.required]),
+      serviceTicketId: new FormControl(this.serviceTicketComment.serviceTicketId, [Validators.nullValidator]),
+      createdBy: new FormControl(this.authUser.fullname, [Validators.required]),
     });
   }
-
   ngOnInit(): void {
   }
+
 
   public cancel(): void {
     this.isLoading = false;
@@ -47,11 +53,11 @@ export class AddDepartmentComponent implements OnInit, OnDestroy {
   public save(): void {
     const t = this;
     this.isLoading = true;
-    let formData = this.departmentFormGroup.value;
+    let formData = this.serviceTicketCommentFormGroup.value;
 
-    if (this.department.id != undefined || null != this.department.id) {
+    if (this.serviceTicketComment.id != undefined || null != this.serviceTicketComment.id) {
       //update
-      t.backend.updateDepartment(formData)
+      t.backend.updateServiceTicketComment(formData)
         .pipe(takeUntil(t.unSubscriptioNotifier))
         .subscribe({
           next: (response) => {
@@ -62,7 +68,7 @@ export class AddDepartmentComponent implements OnInit, OnDestroy {
                 button: DialogButton.ok, data: response.data
               });
             } else {
-              t.appMaterialComponent.showAlertDialog(DialogType.error, 'Update Department', 'Error occurred while updating department.');
+              t.appMaterialComponent.showAlertDialog(DialogType.error, 'Update Service Ticket Comment', 'Error occurred while updating Service Ticket Comment.');
             }
           }, error: (err: any) => {
             console.log('An error occurred:', err.error.message);
@@ -70,12 +76,12 @@ export class AddDepartmentComponent implements OnInit, OnDestroy {
           }, complete: () => {
             t.dialogRef.close();
             t.isLoading = false;
-            console.log('on complete updateDepartment');
+            console.log('on complete updateserviceTicketComment');
           }
         })
 
     } else {
-      t.backend.addDepartment(formData)
+      t.backend.addServiceTicketComment(formData)
         .pipe(takeUntil(t.unSubscriptioNotifier))
         .subscribe({
           next: (response) => {
@@ -86,7 +92,7 @@ export class AddDepartmentComponent implements OnInit, OnDestroy {
                 button: DialogButton.ok, data: response.data
               });
             } else {
-              t.appMaterialComponent.showAlertDialog(DialogType.error, 'Add Department', 'Error occurred while adding department.');
+              t.appMaterialComponent.showAlertDialog(DialogType.error, 'Add Service Ticket Comment', 'Error occurred while adding Service Ticket Comment.');
             }
           }, error: (err: any) => {
             console.log('An error occurred:', err.error.message);
@@ -94,7 +100,7 @@ export class AddDepartmentComponent implements OnInit, OnDestroy {
           }, complete: () => {
             t.dialogRef.close();
             t.isLoading = false;
-            console.log('on complete addDepartment');
+            console.log('on complete Service Ticket Comment');
           }
         })
 
@@ -105,4 +111,5 @@ export class AddDepartmentComponent implements OnInit, OnDestroy {
     this.unSubscriptioNotifier.next()
     this.unSubscriptioNotifier.complete()
   }
+
 }

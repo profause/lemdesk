@@ -60,9 +60,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="d-flex justify-content-start">
-                                    <a [routerLink]="['../service-ticket',serviceTicket?.id]" class="p-1">
+                                    <!-- <a [routerLink]="['../service-ticket',serviceTicket?.id]" class="p-1">
                                         <img src="assets/images/view_icon.png" height="24" width="24" alt="">
-                                    </a>
+                                    </a> -->
                                     <a [routerLink]="['../request-service',serviceTicket?.id]" class="p-1">
                                         <img src="assets/images/edit_icon.png" height="24" width="24" alt="">
                                     </a>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="d-flex justify-content-end">
-                                    <div matRipple class="d-flex justify-content-around align-items-middle left-button">
+                                    <div (click)="openAddServiceTicketCommentDialog({serviceTicketId:serviceTicket.id})" matRipple class="d-flex justify-content-around align-items-middle left-button">
                                         <h4 class="title-text mt-2">Add Note/Comment</h4>
                                         <div class="badge mt-2">
                                             <img src="assets/images/notes_icon.png" height="16" width="16" class="img-fluid" alt="">
@@ -108,8 +108,8 @@
                                     <img src="assets/images/notes_icon.png" height="18" width="18" alt="">
                                 </div>
                                 <mat-menu #commentMenu>
-                                    <button class="text-bold" mat-menu-item>Edit</button>
-                                    <button class="text-bold" mat-menu-item>Delete</button>
+                                    <button (click)="openAddServiceTicketCommentDialog(comment)" class="text-bold" mat-menu-item>Edit</button>
+                                    <button (click)="deleteServiceTicketComment(comment)" class="text-bold" mat-menu-item>Delete</button>
                                 </mat-menu>
                             </div>
                             <p class="subtitle-text m-0 p-0">{{comment.text}}</p>

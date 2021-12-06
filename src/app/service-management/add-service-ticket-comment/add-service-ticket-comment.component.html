@@ -1,0 +1,39 @@
+<div class="d-flex justify-content-between mb-3">
+    <h2 mat-dialog-title>{{dialogOptions.title}}</h2>
+    <button mat-icon-button (click)="cancel()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<div mat-dialog-content>
+    <form [formGroup]="serviceTicketCommentFormGroup" #serviceTicketCommentForm="ngForm" name="serviceTicketCommentFormGroup">
+        <div class="form-row card-shadow bg-white mb-2 pl-2 pr-2">
+            <div class="col-md-12" style="margin-bottom: 15px; margin-top: -5px;">
+                <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                    <mat-label style="font-size: 16px;">Comment/Note</mat-label>
+                    <textarea style="font-size: 18px;" class="" rows="3" matInput formControlName="text" type="text" id="text" name="text" required minlength="4" autocomplete="off" [ngClass]="{ 'is-invalid':serviceTicketCommentForm.submitted && serviceTicketCommentFormGroup.get('text')?.hasError('required') }"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-md-12" style="margin-bottom: 15px; margin-top: -5px;">
+            <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                <mat-label style="font-size: 16px;">Type</mat-label>
+                <mat-select required formControlName="type" name="type" id="type" style="font-size: 18px;">
+                    <mat-option value="NOTE">
+                        NOTE
+                    </mat-option>
+                    <mat-option value="COMMENT">
+                        COMMENT
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </form>
+    <div class="col-md-12 d-flex justify-content-center mt-2 mb-3">
+        <mat-spinner [hidden]="!isLoading" class="align-self-center" mode="indeterminate" [diameter]="35" [strokeWidth]="2">
+        </mat-spinner>
+    </div>
+</div>
+<div mat-dialog-actions align="end">
+    <button style="font-size: 18px;" mat-button (click)="cancel()">Cancel</button>
+    <button [disabled]="!serviceTicketCommentForm.valid || isLoading" (click)="save()" style="font-size: 18px;" mat-button cdkFocusInitial>Save</button>
+</div>
