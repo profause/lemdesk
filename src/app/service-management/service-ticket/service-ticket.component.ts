@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SwiperConfigInterface, SwiperDirective, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
 import { Observable, BehaviorSubject, Subject, forkJoin } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { AppMaterialDesignModule } from 'src/app/app-material-design.module';
 import { ServiceTicket } from 'src/app/shared/models/service-ticket.interface';
 import { User } from 'src/app/shared/models/user.interface';
@@ -94,37 +95,50 @@ export class ServiceTicketComponent implements OnInit, OnDestroy {
     this.swiperDirectiveRef.setIndex(index);
   }
 
+  // public addServiceRequest() {
+  //   this.dataSource.currentdata.pipe(take(1))
+  //     .subscribe(data => {
+  //       const index = this.serviceTicketList.findIndex(x => x.id == data.id);
+  //       console.log('index : ' + index);
+  //       if (index == -1) {
+  //         this.serviceTicketList.push(data);
+  //       } else {
+  //         this.serviceTicketList[index] = data;
+  //       }
+  //     })
+  // }
+
   public getServiceTicketList() {
     this.isLoading = true;
     const ticketAssignedToMe = this.backend.getServiceTicketsAssignedToMe(this.authUser.id);
     const ticketRecentlyClosed = this.backend.getServiceTicketsRecentlyClosed(this.authUser.id);
     const pendingTickets = this.backend.getPendingServiceTickets(this.authUser.id);
-    
-    forkJoin([ticketAssignedToMe,ticketRecentlyClosed,pendingTickets])
-    .pipe()
-    .subscribe({
-      next: (result) => {
-        const assignedToMeResponse = result[0];
-        this.serviceTicketList = assignedToMeResponse.data;
-        this.serviceTicketListBehaviour.next(this.serviceTicketList);
 
-        const recentlyClosedResponse = result[1];
-        this.serviceTicketList = recentlyClosedResponse.data;
-        this.serviceTicketRecentlyClosedListBehaviour.next(this.serviceTicketList);
+    forkJoin([ticketAssignedToMe, ticketRecentlyClosed, pendingTickets])
+      .pipe()
+      .subscribe({
+        next: (result) => {
+          const assignedToMeResponse = result[0];
+          this.serviceTicketList = assignedToMeResponse.data;
+          this.serviceTicketListBehaviour.next(this.serviceTicketList);
 
-        const pendingTicketsResponse = result[2];
-        this.serviceTicketList = pendingTicketsResponse.data;
-        this.pendingServiceTicketListBehaviour.next(this.serviceTicketList);
+          const recentlyClosedResponse = result[1];
+          this.serviceTicketList = recentlyClosedResponse.data;
+          this.serviceTicketRecentlyClosedListBehaviour.next(this.serviceTicketList);
 
-        this.isLoading = false;
-      },error: (error) => {
-        this.isLoading = false;
-        console.log(error);
-      },complete: () => {
-        this.isLoading = false;
-        console.log('complete getServiceTicketList');
-      }
-    })
+          const pendingTicketsResponse = result[2];
+          this.serviceTicketList = pendingTicketsResponse.data;
+          this.pendingServiceTicketListBehaviour.next(this.serviceTicketList);
+
+          this.isLoading = false;
+        }, error: (error) => {
+          this.isLoading = false;
+          console.log(error);
+        }, complete: () => {
+          this.isLoading = false;
+          console.log('complete getServiceTicketList');
+        }
+      })
   }
 
   ngOnDestroy(): void {

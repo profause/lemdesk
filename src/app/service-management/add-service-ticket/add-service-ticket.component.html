@@ -26,10 +26,13 @@
                     </div>
                     <div class="form-row pl-2 pr-2">
                         <div class="col-md-12" style="margin-bottom: 15px; margin-top: -5px;">
-                            <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                            <!-- <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
                                 <mat-label style="font-size: 16px;">Description</mat-label>
+
                                 <textarea style="font-size: 18px;" class="" rows="3" matInput formControlName="description" type="text" id="description" name="description" required minlength="4" autocomplete="off" [ngClass]="{ 'is-invalid':serviceTicketForm.submitted && serviceTicketFormGroup.get('description')?.hasError('required') }"></textarea>
-                            </mat-form-field>
+                            </mat-form-field> -->
+                            <angular-editor formControlName="richTextDescription" [config]="editorConfig"></angular-editor>
+
                         </div>
                     </div>
                     <div class="form-row pl-2 pr-2">

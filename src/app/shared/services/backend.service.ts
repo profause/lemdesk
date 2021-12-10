@@ -5,6 +5,7 @@ import { ServiceTicketComponent } from 'src/app/service-management/service-ticke
 import { environment } from 'src/environments/environment';
 import { Department } from '../models/department.interface';
 import { ServiceTicketComment } from '../models/service-ticket-comment.interface';
+import { ServiceTicket } from '../models/service-ticket.interface';
 import { User } from '../models/user.interface';
 import { LocalAuthService } from './local-auth.service';
 
@@ -440,6 +441,7 @@ export class BackendService {
         {
           title: 'Service Ticket 1',
           description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type',
+          richTextDescription: '<media type="tweet" url="https://twitter.com/Interior/status/463440424141459456"></media>',
           id: '669c7af378674e086526 ',
           date: '2019-01-01',
           status: 'PENDING',
@@ -517,6 +519,56 @@ export class BackendService {
     )
 
     return this.httpClient.get<any>(environment.backend.baseUrl + '/service-tickets/comments/' + serviceTicketId, {
+      headers: httpHeaders,
+    });
+  }
+
+  public addServiceTicket(serviceTicket: ServiceTicket): Observable<any> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
+    });
+
+    const id = new Date().getTime().toString()
+    serviceTicket.id = id;
+    serviceTicket.createdDate = new Date().getTime().toString();
+    serviceTicket.createdBy = this.localAuth.getAuthUser().fullname;
+    
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data: serviceTicket
+      }
+    )
+
+    return this.httpClient.post<any>(environment.backend.baseUrl + '/service-tickets', serviceTicket, {
+      headers: httpHeaders,
+    });
+  }
+
+  public updateServiceTicket(serviceTicket: ServiceTicket): Observable<any> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': 'Bearer ' + this.localAuth.getAuthUser().token
+    });
+
+    const id = new Date().getTime().toString()
+    serviceTicket.id = id;
+    serviceTicket.createdDate = new Date().getTime().toString();
+    serviceTicket.createdBy = this.localAuth.getAuthUser().fullname;
+    
+    return of(
+      {
+        code: "000",
+        message: "SUCCESS",
+        data: serviceTicket
+      }
+    )
+
+    return this.httpClient.put<any>(environment.backend.baseUrl + '/service-tickets/'+serviceTicket.id, serviceTicket, {
       headers: httpHeaders,
     });
   }

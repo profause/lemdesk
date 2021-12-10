@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Subscription, Subject, BehaviorSubject, Observable } from 'rxjs';
+import { Subscription, Subject, BehaviorSubject, Observable, of } from 'rxjs';
 import { switchMap, take, takeUntil } from 'rxjs/operators';
 import { AppMaterialDesignModule } from 'src/app/app-material-design.module';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
@@ -81,6 +81,38 @@ export class ServiceTicketDetailComponent implements OnInit, OnDestroy {
     })
   }
 
+  public changeServiceTicketStatus(serviceTicket: ServiceTicket, status: string) {
+    this.appMaterialComponent.openDialog(AddServiceTicketCommentComponent, {
+      width: '550px',
+      title: 'Add Service Ticket Comment',
+      message: 'Add Service Ticket Comment',
+      data: {
+        serviceTicketId: serviceTicket.id,
+        type: 'COMMENT'
+      }
+    }).pipe(
+      switchMap((result: DialogButton) => {
+        if (result['button'] == DialogButton.ok) {
+          serviceTicket.status = status
+          const u = this.backend.updateServiceTicket(serviceTicket);
+          result['response'] = u;
+          return of(result)
+        } else {
+          return of(result)
+        }
+      }),
+      take(1),
+    ).subscribe({
+      next: (result) => {
+        console.log('result', result);
+        if (result['button'] == DialogButton.ok) {
+          const data = result['data'];
+          this.serviceTicketCommentList.push(data);
+        }
+      }
+    })
+
+  }
   public deleteServiceTicketComment(serviceTicketComment: ServiceTicketComment) {
     let t = this;
     this.appMaterialComponent.openDialog(ConfirmDialogComponent, {
@@ -102,7 +134,6 @@ export class ServiceTicketDetailComponent implements OnInit, OnDestroy {
         t.isLoading = false;
         if (response.code == '000') {
           const index = this.serviceTicketCommentList.findIndex(x => x.id == serviceTicketComment.id);
-          
           t.serviceTicketCommentList.splice(index, 1);
           //t.getUserList();
         } else {

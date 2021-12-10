@@ -1,6 +1,7 @@
 export interface ServiceTicket {
     title?: string;
     description?: string;
+    richTextDescription?: string;
     id?: string | undefined
     initiator?: any;
     assignedTo?: any

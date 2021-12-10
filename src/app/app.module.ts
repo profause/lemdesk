@@ -14,6 +14,7 @@ import { AppbarComponent } from './shared/components/appbar/appbar.component';
 import { DashboardModule, DashboardRoutingComponents } from './dashboard/dashboard.module';
 import { ServiceManagementModule, ServiceManagementRoutingComponents } from './service-management/service-management.module';
 import { SwiperConfigInterface, SwiperModule, SWIPER_CONFIG } from 'ngx-swiper-wrapper';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 export function playerFactory() {
   return player;
@@ -47,6 +48,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    AngularEditorModule,
     LottieModule.forRoot({ player: playerFactory })
   ],
   providers: [{

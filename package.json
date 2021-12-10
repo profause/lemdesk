@@ -23,6 +23,7 @@
     "@angular/platform-browser": "~11.2.13",
     "@angular/platform-browser-dynamic": "~11.2.13",
     "@angular/router": "~11.2.13",
+    "@kolkov/angular-editor": "^1.2.0",
     "animate.css": "^4.1.1",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^4.4.1",

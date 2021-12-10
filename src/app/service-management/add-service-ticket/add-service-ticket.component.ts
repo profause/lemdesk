@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Subscription, Subject, BehaviorSubject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AppMaterialDesignModule } from 'src/app/app-material-design.module';
@@ -9,6 +10,7 @@ import { ServiceTicket } from 'src/app/shared/models/service-ticket.interface';
 import { User } from 'src/app/shared/models/user.interface';
 import { BackendService } from 'src/app/shared/services/backend.service';
 import { DataService } from 'src/app/shared/services/data.service';
+import { DialogType } from 'src/app/shared/services/dialog.service';
 import { LocalAuthService } from 'src/app/shared/services/local-auth.service';
 
 @Component({
@@ -53,6 +55,7 @@ export class AddServiceTicketComponent implements OnInit, OnDestroy {
       id: new FormControl(''),
       title: new FormControl(''),
       description: new FormControl(''),
+      richTextDescription: new FormControl(''),
       type: new FormControl(''),
       status: new FormControl(''),
       assignedTo: new FormControl(''),
@@ -85,8 +88,9 @@ export class AddServiceTicketComponent implements OnInit, OnDestroy {
       const id = params.get('id')
       if (id != undefined) {
         this.getServiceTicket(id);
-      }else{
+      } else {
         //this.router.navigate(['requests'])
+        this.serviceTicket = { id: null }
       }
     })
 
@@ -122,6 +126,7 @@ export class AddServiceTicketComponent implements OnInit, OnDestroy {
               id: new FormControl(this.serviceTicket.id),
               title: new FormControl(this.serviceTicket.title),
               description: new FormControl(this.serviceTicket.description),
+              richTextDescription: new FormControl(this.serviceTicket.richTextDescription),
               type: new FormControl(this.serviceTicket.type),
               status: new FormControl(this.serviceTicket.status),
               assignedTo: new FormControl(this.serviceTicket.assignedTo['name']),
@@ -139,6 +144,53 @@ export class AddServiceTicketComponent implements OnInit, OnDestroy {
 
   public submit() {
     this.isLoading = true;
+    const t = this;
+    let formData = this.serviceTicketFormGroup.value;
+    console.log(formData);
+    if (this.serviceTicket.id != undefined || null != this.serviceTicket.id) {
+      //update
+      t.backend.updateServiceTicket(formData)
+        .pipe(takeUntil(t.unSubscriptioNotifier))
+        .subscribe({
+          next: (response) => {
+            t.isLoading = false
+            if (response.code === '000') {
+              this.dataSource.setData(response.data)
+              this.router.navigate(['requests'])
+            } else {
+              t.appMaterialComponent.showAlertDialog(DialogType.error, 'Update Service Ticket', 'Error occurred while updating Service Ticket.');
+            }
+          }, error: (err: any) => {
+            console.log('An error occurred:', err.error.message);
+            t.isLoading = false
+          }, complete: () => {
+            t.isLoading = false;
+            console.log('on complete updateServiceTicket');
+          }
+        })
+
+    } else {
+      t.backend.addServiceTicket(formData)
+        .pipe(takeUntil(t.unSubscriptioNotifier))
+        .subscribe({
+          next: (response) => {
+            t.isLoading = false
+            if (response.code === '000') {
+              this.dataSource.setData(response.data)
+              this.router.navigate(['service-management/requests'])
+            } else {
+              t.appMaterialComponent.showAlertDialog(DialogType.error, 'Add Service Ticket Comment', 'Error occurred while adding Service Ticket Comment.');
+            }
+          }, error: (err: any) => {
+            console.log('An error occurred:', err.error.message);
+            t.isLoading = false
+          }, complete: () => {
+            t.isLoading = false;
+            console.log('on complete Service Ticket');
+          }
+        })
+
+    }
   }
 
   ngOnDestroy(): void {
@@ -148,5 +200,72 @@ export class AddServiceTicketComponent implements OnInit, OnDestroy {
       o.unsubscribe()
     })
   }
+
+  public editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '100px',
+    minHeight: '0',
+    maxHeight: 'auto',
+    width: 'auto',
+    minWidth: '0',
+    translate: 'yes',
+    enableToolbar: true,
+    showToolbar: true,
+    placeholder: 'Enter description here...',
+    defaultParagraphSeparator: '',
+    defaultFontName: '',
+    defaultFontSize: '',
+    fonts: [
+      { class: 'arial', name: 'Arial' },
+      { class: 'times-new-roman', name: 'Times New Roman' },
+      { class: 'calibri', name: 'Calibri' },
+      { class: 'comic-sans-ms', name: 'Comic Sans MS' }
+    ],
+    customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ],
+    uploadUrl: 'v1/image',
+    //upload: (file: File) => { }
+    //uploadWithCredentials: false,
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      [
+        'undo',
+        'redo',
+        'outdent',
+        'strikeThrough',
+        'subscript',
+        'superscript',
+        'fontName'
+      ],
+      [
+        'fontSize',
+        'textColor',
+        'backgroundColor',
+        'customClasses',
+        'link',
+        'unlink',
+        'insertImage',
+        'insertVideo',
+        'insertHorizontalRule',
+        'removeFormat',
+        'toggleEditorMode'
+      ]
+    ]
+  };
 
 }
