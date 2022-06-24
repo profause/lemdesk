@@ -10,7 +10,7 @@
         <!-- <div class="form-group"> -->
         <mat-form-field style="width: 70%; font-size: 16px;">
             <mat-label>Search</mat-label>
-            <input matInput autofocus [formControl]="searchInput" type="text" id="searchInput" name="searchInput" required minlength="4" autocomplete="off" aria-describedby="searchHint">
+            <input matInput [formControl]="searchInput" type="text" id="searchInput" name="searchInput" required minlength="4" autocomplete="off" aria-describedby="searchHint">
         </mat-form-field>
         <div (click)="openAddUserDialog({})">
             <img src="assets/images/add_user_icon.png" height="30" width="30" alt="">

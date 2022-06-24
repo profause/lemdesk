@@ -103,9 +103,10 @@ export class AddUserComponent implements OnInit, OnDestroy {
         })
 
     } else {
-      bcrypt.hash(formData['password'].trim(), 10, function (err, hash) {
-        formData['password'] = hash
-        console.log(`hash ${hash}`)
+      delete formData['id'];
+      //bcrypt.hash(formData['password'].trim(), 10, function (err, hash) {
+        //formData['password'] = hash
+        //console.log(`hash ${hash}`)
         t.backend.addUser(formData)
           .pipe(takeUntil(t.unSubscriptioNotifier))
           .subscribe({
@@ -128,7 +129,7 @@ export class AddUserComponent implements OnInit, OnDestroy {
               console.log('on complete addUser');
             }
           })
-      })
+      //})
     }
   }
 

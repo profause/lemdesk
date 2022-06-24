@@ -1,0 +1,44 @@
+<h3 mat-dialog-title class="modal-title title-text text-bold">{{dialogOptions.title}}</h3>
+<div mat-dialog-content>
+    <pre>{{feedbackFormGroup.value | json}}</pre>
+    <form [formGroup]="feedbackFormGroup" #feedbackForm="ngForm" name="feedbackFormGroup">
+        <div class="col-md-12" style="margin-bottom: 15px; margin-top: 15px;">
+            <mat-label style="font-size: 15px;">Resolver Response Time</mat-label>
+            <mat-slider formControlName="responseTime" thumbLabel tickInterval="1" min="1" max="5" step="1" value="3">
+            </mat-slider>
+        </div>
+        <div class="col-md-12" style="margin-bottom: 15px; margin-top: 15px;">
+            <mat-label style="font-size: 15px;">Over all satisfaction</mat-label>
+            <mat-slider formControlName="satisfaction" thumbLabel tickInterval="1" min="1" max="5" step="1" value="3">
+            </mat-slider>
+        </div>
+        <div class="col-md-12" style="margin-bottom: 15px; margin-top: -5px;">
+            <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                <mat-label style="font-size: 16px;">Write a comment</mat-label>
+                <textarea style="font-size: 16px;" rows="2" matInput formControlName="comment" type="text" id="comment"
+                    name="comment" required minlength="4" autocomplete="off"
+                    [ngClass]="{ 'is-invalid':feedbackForm.submitted && feedbackFormGroup.get('comment')?.hasError('required') }"></textarea>
+            </mat-form-field>
+        </div>
+        <div class="col-md-12" style="margin-bottom: 15px; margin-top: -5px;">
+            <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                <mat-label style="font-size: 16px;">Resolution Status</mat-label>
+                <mat-select required formControlName="status" name="status" id="status" style="font-size: 15px;">
+                    <mat-option value="CLOSED">
+                        CLOSED
+                    </mat-option>
+                    <mat-option value="OPEN">
+                        REOPEN
+                    </mat-option>
+                    <mat-option value="PENDING">
+                        PENDING
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="cancel()">cancel</button>
+    <button mat-button color="primary" (click)="save()">Submit</button>
+</div>

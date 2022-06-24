@@ -7,8 +7,6 @@ import { AddDepartmentComponent } from './add-department/add-department.componen
 
 @NgModule({
   declarations: [
-  
-    AddDepartmentComponent
   ],
   imports: [
     CommonModule

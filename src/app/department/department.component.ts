@@ -35,7 +35,7 @@ export class DepartmentComponent implements OnInit, OnDestroy {
     public dataSource: DataService) {
     this.authUser = localAuth.getAuthUser();
     this.searchInput = new FormControl('');
-    this.departmentListBehaviour = new BehaviorSubject([{}])
+    this.departmentListBehaviour = new BehaviorSubject([])
     this.departmentList$ = this.departmentListBehaviour.asObservable();
   }
 
@@ -62,6 +62,7 @@ export class DepartmentComponent implements OnInit, OnDestroy {
           } else {
             this.departmentList[index] = data;
           }
+          this.departmentListBehaviour.next(this.departmentList);
         }
       }
     })
@@ -87,9 +88,8 @@ export class DepartmentComponent implements OnInit, OnDestroy {
         t.isLoading = false;
         if (response.code == '000') {
           const index = this.departmentList.findIndex(x => x.id == department.id);
-          
           t.departmentList.splice(index, 1);
-          //t.getUserList();
+          this.departmentListBehaviour.next(this.departmentList);
         } else {
           this.appMaterialComponent.showAlertDialog(DialogType.error, 'Delete Department', 'Error deleting department');
         }

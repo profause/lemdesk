@@ -2,19 +2,21 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb" style="background-color: transparent;">
             <li class="breadcrumb-item">
-                <li class="breadcrumb-item active" aria-current="page">request-service</li>
+            <li class="breadcrumb-item active" aria-current="page">request-service</li>
         </ol>
     </nav>
     <div class="row">
         <div class="col-md-12 mb-3">
             <div class="d-flex justify-content-end">
-                <a [routerLink]="['../../report-issue']" matRipple class="d-flex justify-content-around align-items-middle left-button">
+                <a [routerLink]="['../../report-issue']" matRipple
+                    class="d-flex justify-content-around align-items-middle left-button">
                     <h4 class="title-text mt-2">Report an Issue</h4>
                     <div class="badge-icon mt-2">
                         <img src="assets/images/caution_icon.png" height="24" width="24" alt="">
                     </div>
                 </a>
-                <a [routerLink]="['../../request-service']" matRipple class="d-flex justify-content-around align-items-middle right-button">
+                <a [routerLink]="['../../request-service']" matRipple
+                    class="d-flex justify-content-around align-items-middle right-button">
                     <h4 class="title-text mt-2">Submit a Request</h4>
                     <div class="badge-icon mt-2">
                         <img src="assets/images/plus_icon_2.png" height="24" width="24" alt="">
@@ -30,65 +32,83 @@
                         <table style="font-size: 16px;" class="table table-borderless table-striped table-lg">
                             <tr>
                                 <th>Ticket Id</th>
-                                <td>{{serviceTicket.id}}</td>
+                                <td>{{serviceTicket?.id}}</td>
                             </tr>
                             <tr>
                                 <th>Title</th>
-                                <td>{{serviceTicket.title}}</td>
+                                <td>{{serviceTicket?.title}}</td>
                             </tr>
                             <tr>
                                 <th>Initiator</th>
-                                <td>{{serviceTicket.initiator.name}}</td>
+                                <td>{{serviceTicket?.initiator.name || serviceTicket?.initiator}}</td>
                             </tr>
                             <tr>
-                                <th>Assigned To</th>
-                                <td>{{serviceTicket.assignedTo.name}}</td>
+                                <th>Assigned To Department</th>
+                                <td>{{serviceTicket?.assignedToDepartment.name || serviceTicket?.assignedToDepartment}}
+                                </td>
                             </tr>
                             <tr>
                                 <th>Status</th>
-                                <td>{{serviceTicket.status}}</td>
+                                <td>{{serviceTicket?.status}}</td>
                             </tr>
                             <tr>
                                 <th>Date</th>
-                                <td>{{serviceTicket.date}}</td>
+                                <td>{{serviceTicket?.date | date}}</td>
                             </tr>
                         </table>
                         <div class="mb-2 ml-2">
                             <p class="text-bold">Description</p>
-                            <p class="title-text">{{serviceTicket.description}}</p>
-                            <div [innerHTML]="serviceTicket.richTextDescription"></div>
+                            <p class="title-text">{{serviceTicket?.description}}</p>
+                            <div [innerHTML]="serviceTicket?.richTextDescription"></div>
+                            <div class="d-flex justify-content-end">
+                                <div *ngIf="serviceTicket?.status!='RESOLVED'">
+                                    <p class="text-right">This ticket status has been changed to RESOLVED</p>
+                                    <div class="d-flex justify-content-end">
+                                        <button (click)="openFeedbackDialog(serviceTicket)" mat-button color="accent">Give feedback</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 mb-1">
+                            <div class="col-md-12 d-flex justify-content-between mb-1">
                                 <div class="d-flex justify-content-start">
                                     <!-- <a [routerLink]="['../service-ticket',serviceTicket?.id]" class="p-1">
                                         <img src="assets/images/view_icon.png" height="24" width="24" alt="">
                                     </a> -->
-                                    <a [routerLink]="['../request-service',serviceTicket?.id]" class="p-1">
+                                    <a [routerLink]="['/service-management/request-service',serviceTicket?.id]"
+                                        class="p-1">
                                         <img src="assets/images/edit_icon.png" height="24" width="24" alt="">
                                     </a>
-                                    <div class="p-1">
+                                    <div *ngIf="authUser.id == serviceTicket?.initiatorId" class="p-1">
                                         <img src="assets/images/delete_icon.png" height="24" width="24" alt="">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
+
                                 <div class="d-flex justify-content-end">
-                                    <div (click)="openAddServiceTicketCommentDialog({serviceTicketId:serviceTicket.id})" matRipple class="d-flex justify-content-around align-items-middle left-button">
+                                    <div (click)="openAddServiceTicketCommentDialog({serviceTicketId:serviceTicket?.id})"
+                                        matRipple class="d-flex justify-content-around align-items-middle left-button">
                                         <h4 class="title-text mt-2">Add Note/Comment</h4>
                                         <div class="badge mt-2">
-                                            <img src="assets/images/notes_icon.png" height="16" width="16" class="img-fluid" alt="">
+                                            <img src="assets/images/notes_icon.png" height="16" width="16"
+                                                class="img-fluid" alt="">
                                         </div>
                                     </div>
-                                    <div [mat-menu-trigger-for]="statusMenu" matRipple class="d-flex justify-content-around align-items-middle right-button">
+                                    <div [mat-menu-trigger-for]="statusMenu" matRipple
+                                        class="d-flex justify-content-around align-items-middle right-button">
                                         <h4 class="title-text mt-2">Change Status</h4>
                                         <div class="badge mt-2">
-                                            <img src="assets/images/status_icon.png" height="16" width="16" class="img-fluid" alt="">
+                                            <img src="assets/images/status_icon.png" height="16" width="16"
+                                                class="img-fluid" alt="">
                                         </div>
                                         <mat-menu #statusMenu>
-                                            <button (click)="changeServiceTicketStatus(serviceTicket,'open')" class="text-bold" mat-menu-item>Open</button>
-                                            <button (click)="changeServiceTicketStatus(serviceTicket,'pending')" class="text-bold" mat-menu-item>Pending</button>
-                                            <button (click)="changeServiceTicketStatus(serviceTicket,'closed')" class="text-bold" mat-menu-item>Closed</button>
+                                            <button (click)="changeServiceTicketStatus(serviceTicket,'OPEN')"
+                                                class="text-bold" mat-menu-item>Open</button>
+                                            <button (click)="changeServiceTicketStatus(serviceTicket,'PENDING')"
+                                                class="text-bold" mat-menu-item>Pending</button>
+                                            <!-- <button (click)="changeServiceTicketStatus(serviceTicket,'CLOSED')"
+                                                class="text-bold" mat-menu-item>Closed</button> -->
+                                            <button (click)="changeServiceTicketStatus(serviceTicket,'RESOLVED')"
+                                                class="text-bold" mat-menu-item>Resolved</button>
                                         </mat-menu>
                                     </div>
                                 </div>
@@ -100,24 +120,16 @@
                     <div class="card-1 p-3" style="max-height: 620px; background-color: #1B485D; color: white;">
                         <h2 class="text-bold">Comments/Notes</h2>
                         <div class="mb-2" *ngFor="let comment of serviceTicketCommentList$ | async; let i=index;">
-                            <div class="d-flex justify-content-start align-items-center">
-                                <p class="text-bold m-0 p-0 mr-2">{{comment.createdBy.name}}</p>
-                                <div *ngIf="comment.type=='COMMENT'" [mat-menu-trigger-for]="commentMenu">
-                                    <img src="assets/images/comment_icon.png" height="18" width="18" alt="">
-                                </div>
-                                <div *ngIf="comment.type=='NOTE'" [mat-menu-trigger-for]="commentMenu">
-                                    <img src="assets/images/notes_icon.png" height="18" width="18" alt="">
-                                </div>
-                                <mat-menu #commentMenu>
-                                    <button (click)="openAddServiceTicketCommentDialog(comment)" class="text-bold" mat-menu-item>Edit</button>
-                                    <button (click)="deleteServiceTicketComment(comment)" class="text-bold" mat-menu-item>Delete</button>
-                                </mat-menu>
-                            </div>
-                            <p class="subtitle-text m-0 p-0">{{comment.text}}</p>
-                            <small class="m-0 p-0">{{comment.createdDate|date}}</small>
+                            <ng-container
+                                [ngTemplateOutlet]="comment?.createdBy==authUser?.fullname ?right_content : left_content"
+                                [ngTemplateOutletContext]="{comment:comment}">
+                            </ng-container>
+                            <!-- <div *ngIf="comment?.createdBy==authUser?.fullname;then right_content else left_content">
+                            </div> -->
                         </div>
                         <div class="d-flex justify-content-center mt-2 mb-3">
-                            <mat-spinner [hidden]="!isLoading" class="align-self-center" mode="indeterminate" [diameter]="35" [strokeWidth]="2">
+                            <mat-spinner [hidden]="!isLoading" class="align-self-center" mode="indeterminate"
+                                [diameter]="35" [strokeWidth]="2">
                             </mat-spinner>
                         </div>
                     </div>
@@ -126,3 +138,50 @@
         </div>
     </div>
 </div>
+
+<ng-template #left_content let-comment='comment'>
+    <div class="d-flex justify-content-start">
+        <div>
+            <div class="d-flex justify-content-start align-items-center">
+                <p class="text-bold m-0 p-0 mr-2">{{comment.createdBy}}</p>
+                <div *ngIf="comment.type=='COMMENT'" [mat-menu-trigger-for]="commentMenu">
+                    <img src="assets/images/comment_icon.png" height="18" width="18" alt="">
+                </div>
+                <div *ngIf="comment.type=='NOTE'" [mat-menu-trigger-for]="commentMenu">
+                    <img src="assets/images/notes_icon.png" height="18" width="18" alt="">
+                </div>
+                <mat-menu #commentMenu>
+                    <button (click)="openAddServiceTicketCommentDialog(comment)" class="text-bold"
+                        mat-menu-item>Edit</button>
+                    <button (click)="deleteServiceTicketComment(comment)" class="text-bold"
+                        mat-menu-item>Delete</button>
+                </mat-menu>
+            </div>
+            <p class="text-left subtitle-text m-0 p-0">{{comment.text}}</p>
+            <p class="text-left text-muted m-0 p-0"><small>{{comment.createdDate|relativeTime}}</small></p>
+        </div>
+    </div>
+</ng-template>
+<ng-template #right_content let-comment='comment'>
+    <div class="d-flex justify-content-end">
+        <div>
+            <div class="d-flex justify-content-start align-items-center">
+                <p class="text-bold m-0 p-0 mr-2">{{comment.createdBy}}</p>
+                <div *ngIf="comment.type=='COMMENT'" [mat-menu-trigger-for]="commentMenu">
+                    <img src="assets/images/comment_icon.png" height="18" width="18" alt="">
+                </div>
+                <div *ngIf="comment.type=='NOTE'" [mat-menu-trigger-for]="commentMenu">
+                    <img src="assets/images/notes_icon.png" height="18" width="18" alt="">
+                </div>
+                <mat-menu #commentMenu>
+                    <button (click)="openAddServiceTicketCommentDialog(comment)" class="text-bold"
+                        mat-menu-item>Edit</button>
+                    <button (click)="deleteServiceTicketComment(comment)" class="text-bold"
+                        mat-menu-item>Delete</button>
+                </mat-menu>
+            </div>
+            <p class="text-right subtitle-text m-0 p-0">{{comment.text}}</p>
+            <p class="text-right text-muted m-0 p-0"><small>{{comment.createdDate|relativeTime}}</small></p>
+        </div>
+    </div>
+</ng-template>

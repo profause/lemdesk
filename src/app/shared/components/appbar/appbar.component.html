@@ -5,15 +5,15 @@
                 <h2 class="text-bold color-primary mt-2">LemDesk</h2>
                 <div class="d-flex justify-content-start mt-2 mb-2">
                     <a [routerLink]="['/home']" class="title-text pr-3 pl-3 pt-1 pb-1 mr-2 btn" [routerLinkActive]="['active-link']">HOME</a>
-                    <a [routerLink]="['/dashboard']" class="title-text pr-3 pl-3 pt-1 pb-1 ml-1 mr-2 btn" [routerLinkActive]="['active-link']">DASHBOARD</a>
-                    <a [routerLink]="['/service-management']" class="title-text pr-3 pl-3 pt-1 pb-1 ml-1 mr-2 btn" [routerLinkActive]="['active-link']">SERVICE MANAGEMENT</a>
+                    <a (click)="navigateToDashboard()" class="title-text pr-3 pl-3 pt-1 pb-1 ml-1 mr-2 btn" [routerLinkActive]="['active-link']">DASHBOARD</a>
+                    <a *ngIf="!['USER','STUDENT'].includes(authUser.role)" [routerLink]="['/service-management']" class="title-text pr-3 pl-3 pt-1 pb-1 ml-1 mr-2 btn" [routerLinkActive]="['active-link']">SERVICE MANAGEMENT</a>
                     <a [routerLink]="['/faqs']" class="title-text pr-3 pl-3 pt-1 pb-1 ml-1 mr-2 btn" [routerLinkActive]="['active-link']">FAQs</a>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="d-flex justify-content-end mt-4 mb-2">
                     <img src="assets/images/profile-image-placeholder.png" alt="profile-image-placeholder" class="img-fluid profile-image-medium">
-                    <button class="text-bold" mat-button [mat-menu-trigger-for]="profileMenu">PROFAUSE</button>
+                    <button class="text-bold" mat-button [mat-menu-trigger-for]="profileMenu">{{username}}</button>
                     <mat-menu #profileMenu>
                         <button mat-menu-item routerLink="/user/change-password">Change Password</button>
                     </mat-menu>

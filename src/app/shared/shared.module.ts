@@ -13,6 +13,11 @@ import { AppbarComponent } from './components/appbar/appbar.component';
 import { MaterialAlertDialogComponent } from './components/material-alert-dialog/material-alert-dialog.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
+import { AlertService } from './services/alert.service';
+import { MaterialAlertToasterComponent } from './components/material-alert-toaster/material-alert-toaster.component';
+import { AddDepartmentComponent } from '../department/add-department/add-department.component';
+import { RelativeTimePipe } from './utils/RelativeTimePipe';
+import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-dialog.component';
 
 
 
@@ -20,18 +25,28 @@ import { RoleGuard } from './guards/role.guard';
   declarations: [
     MaterialProgressDialogComponent,
     MaterialAlertDialogComponent,
+    MaterialAlertToasterComponent,
     ConfirmDialogComponent,
     InputDialogComponent,
+    AddDepartmentComponent,
+    RelativeTimePipe,
+    FeedbackDialogComponent
   ],
   imports: [
     AppMaterialDesignModule,
     CommonModule
   ],
+  exports:[
+    MaterialAlertToasterComponent,
+    RelativeTimePipe
+  ],
   entryComponents:[
     MaterialProgressDialogComponent,
     MaterialAlertDialogComponent,
+    MaterialAlertToasterComponent,
     ConfirmDialogComponent,
     InputDialogComponent,
+    FeedbackDialogComponent,
     AppbarComponent
   ],
   providers:[
@@ -41,7 +56,8 @@ import { RoleGuard } from './guards/role.guard';
     DataService,
     FormBuilderService,
     AuthGuard,
-    RoleGuard
+    RoleGuard,
+    AlertService
   ]
 })
 export class SharedModule { }

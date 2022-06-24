@@ -16,16 +16,15 @@ import { LocalAuthService } from 'src/app/shared/services/local-auth.service';
 @Component({
   selector: 'app-add-service-ticket',
   templateUrl: './add-service-ticket.component.html',
-  styleUrls: ['./add-service-ticket.component.scss']
+  styleUrls: ['./add-service-ticket.component.scss'],
 })
 export class AddServiceTicketComponent implements OnInit, OnDestroy {
-
-  public serviceTicketFormGroup: FormGroup
+  public serviceTicketFormGroup: FormGroup;
 
   public isLoading = false;
-  private observers: Subscription[] = []
+  private observers: Subscription[] = [];
   private unSubscriptioNotifier = new Subject();
-  public serviceTicket: ServiceTicket
+  public serviceTicket: ServiceTicket;
   public authUser: User;
 
   public categoryList = new Array<string>();
@@ -33,21 +32,23 @@ export class AddServiceTicketComponent implements OnInit, OnDestroy {
   public categoryListBehaviour: BehaviorSubject<string[]>;
 
   public departmentList = new Array<Department>();
-  public departmentList$: Observable<Department[]> = new Observable<Department[]>();
+  public departmentList$: Observable<Department[]> = new Observable<
+    Department[]
+  >();
   public departmentListBehaviour: BehaviorSubject<Department[]>;
 
-
-  constructor(public router: Router,
+  constructor(
+    public router: Router,
     private activateRoute: ActivatedRoute,
     private appMaterialComponent: AppMaterialDesignModule,
     private localAuth: LocalAuthService,
     private backend: BackendService,
-    private dataSource: DataService) {
-
-    this.categoryListBehaviour = new BehaviorSubject([])
+    private dataSource: DataService
+  ) {
+    this.categoryListBehaviour = new BehaviorSubject([]);
     this.categoryList$ = this.categoryListBehaviour.asObservable();
 
-    this.departmentListBehaviour = new BehaviorSubject([{}])
+    this.departmentListBehaviour = new BehaviorSubject([{}]);
     this.departmentList$ = this.departmentListBehaviour.asObservable();
 
     this.authUser = localAuth.getAuthUser();
@@ -57,42 +58,57 @@ export class AddServiceTicketComponent implements OnInit, OnDestroy {
       description: new FormControl(''),
       richTextDescription: new FormControl(''),
       type: new FormControl(''),
-      status: new FormControl(''),
-      assignedTo: new FormControl(''),
+      status: new FormControl('OPEN'),
+      assignedToDepartment: new FormControl(''),
+      assignedToResolver: new FormControl(''),
       date: new FormControl(''),
       category: new FormControl(''),
       impact: new FormControl(''),
       urgency: new FormControl(''),
       attachments: new FormControl(''),
       initiator: new FormControl(this.authUser.fullname),
-    })
+      initiatorId: new FormControl(this.authUser.id),
+    });
   }
 
   getDepartmentList() {
     this.isLoading = true;
-    this.backend.getDepartmentList()
+    this.backend
+      .getDepartmentList()
       .pipe(takeUntil(this.unSubscriptioNotifier))
       .subscribe({
         next: (response) => {
-          this.isLoading = false
+          this.isLoading = false;
           if (response.code == '000') {
             this.departmentList = response.data;
             this.departmentListBehaviour.next(this.departmentList);
           }
-        }
-      })
+        },
+      });
   }
 
   ngOnInit(): void {
     this.activateRoute.paramMap.subscribe((params: ParamMap) => {
-      const id = params.get('id')
+      const id = params.get('id');
       if (id != undefined) {
         this.getServiceTicket(id);
       } else {
         //this.router.navigate(['requests'])
-        this.serviceTicket = { id: null }
+        this.serviceTicket = { id: null };
+
+        const lastUrlSegment = this.router.url.split('?')[0].split('/').pop();
+        console.log(lastUrlSegment);
+        if (lastUrlSegment == 'request-service') {
+          this.serviceTicketFormGroup.patchValue({
+            type: 'REQUEST',
+          });
+        } else {
+          this.serviceTicketFormGroup.patchValue({
+            type: 'ISSUE',
+          });
+        }
       }
-    })
+    });
 
     this.getServiceCategoryList();
     this.getDepartmentList();
@@ -100,22 +116,24 @@ export class AddServiceTicketComponent implements OnInit, OnDestroy {
 
   getServiceCategoryList() {
     this.isLoading = true;
-    this.backend.getServiceCategoryList()
+    this.backend
+      .getServiceCategoryList()
       .pipe(takeUntil(this.unSubscriptioNotifier))
       .subscribe({
         next: (response) => {
-          this.isLoading = false
+          this.isLoading = false;
           if (response.code == '000') {
             this.categoryList = response.data;
             this.categoryListBehaviour.next(this.categoryList);
           }
-        }
-      })
+        },
+      });
   }
 
   public getServiceTicket(id: string) {
     this.isLoading = true;
-    this.backend.getServiceTicketById(id)
+    this.backend
+      .getServiceTicketById(id)
       .pipe(takeUntil(this.unSubscriptioNotifier))
       .subscribe({
         next: (response) => {
@@ -126,20 +144,33 @@ export class AddServiceTicketComponent implements OnInit, OnDestroy {
               id: new FormControl(this.serviceTicket.id),
               title: new FormControl(this.serviceTicket.title),
               description: new FormControl(this.serviceTicket.description),
-              richTextDescription: new FormControl(this.serviceTicket.richTextDescription),
+              richTextDescription: new FormControl(
+                this.serviceTicket.richTextDescription
+              ),
               type: new FormControl(this.serviceTicket.type),
               status: new FormControl(this.serviceTicket.status),
-              assignedTo: new FormControl(this.serviceTicket.assignedTo['name']),
+              assignedToDepartment: new FormControl(
+                this.serviceTicket.assignedToDepartment
+              ),
+              assignedToResolver: new FormControl(
+                this.serviceTicket.assignedToResolver
+              ),
               date: new FormControl(this.serviceTicket.date),
               category: new FormControl(this.serviceTicket.category),
               impact: new FormControl(this.serviceTicket.impact),
               urgency: new FormControl(this.serviceTicket.urgency),
               attachments: new FormControl(this.serviceTicket.attachments),
-              initiator: new FormControl(this.serviceTicket.initiator['name']),
-            })
+              initiator: new FormControl(
+                this.serviceTicket.initiator['name'] ||
+                  this.serviceTicket.initiator
+              ),
+              initiatorId: new FormControl(
+                this.serviceTicket.initiatorId || ''
+              ),
+            });
           }
-        }
-      })
+        },
+      });
   }
 
   public submit() {
@@ -149,56 +180,77 @@ export class AddServiceTicketComponent implements OnInit, OnDestroy {
     console.log(formData);
     if (this.serviceTicket.id != undefined || null != this.serviceTicket.id) {
       //update
-      t.backend.updateServiceTicket(formData)
+      t.backend
+        .updateServiceTicket(formData)
         .pipe(takeUntil(t.unSubscriptioNotifier))
         .subscribe({
           next: (response) => {
-            t.isLoading = false
+            t.isLoading = false;
             if (response.code === '000') {
-              this.dataSource.setData(response.data)
-              this.router.navigate(['requests'])
+              this.dataSource.setData(response.data);
+              if (['USER', 'STUDENT'].includes(this.authUser.role)) {
+                this.router.navigate(['dashboard/user-overview']);
+              } else {
+                this.router.navigate(['service-management/requests']);
+              }
             } else {
-              t.appMaterialComponent.showAlertDialog(DialogType.error, 'Update Service Ticket', 'Error occurred while updating Service Ticket.');
+              t.appMaterialComponent.showAlertDialog(
+                DialogType.error,
+                'Update Service Ticket',
+                'Error occurred while updating Service Ticket.'
+              );
             }
-          }, error: (err: any) => {
+          },
+          error: (err: any) => {
             console.log('An error occurred:', err.error.message);
-            t.isLoading = false
-          }, complete: () => {
+            t.isLoading = false;
+          },
+          complete: () => {
             t.isLoading = false;
             console.log('on complete updateServiceTicket');
-          }
-        })
-
+          },
+        });
     } else {
-      t.backend.addServiceTicket(formData)
+      delete formData['id'];
+      t.backend
+        .addServiceTicket(formData)
         .pipe(takeUntil(t.unSubscriptioNotifier))
         .subscribe({
           next: (response) => {
-            t.isLoading = false
+            t.isLoading = false;
             if (response.code === '000') {
-              this.dataSource.setData(response.data)
-              this.router.navigate(['service-management/requests'])
+              this.dataSource.setData(response.data);
+              if (['USER', 'STUDENT'].includes(this.authUser.role)) {
+                this.router.navigate(['dashboard/user-overview']);
+              } else {
+                this.router.navigate(['service-management/requests']);
+              }
             } else {
-              t.appMaterialComponent.showAlertDialog(DialogType.error, 'Add Service Ticket Comment', 'Error occurred while adding Service Ticket Comment.');
+              t.appMaterialComponent.showAlertDialog(
+                DialogType.error,
+                'Add Service Ticket Comment',
+                'Error occurred while adding Service Ticket.'
+              );
             }
-          }, error: (err: any) => {
+          },
+          error: (err: any) => {
             console.log('An error occurred:', err.error.message);
-            t.isLoading = false
-          }, complete: () => {
+            t.isLoading = false;
+          },
+          complete: () => {
             t.isLoading = false;
             console.log('on complete Service Ticket');
-          }
-        })
-
+          },
+        });
     }
   }
 
   ngOnDestroy(): void {
-    this.unSubscriptioNotifier.next()
-    this.unSubscriptioNotifier.complete()
-    this.observers.forEach(o => {
-      o.unsubscribe()
-    })
+    this.unSubscriptioNotifier.next();
+    this.unSubscriptioNotifier.complete();
+    this.observers.forEach((o) => {
+      o.unsubscribe();
+    });
   }
 
   public editorConfig: AngularEditorConfig = {
@@ -220,7 +272,7 @@ export class AddServiceTicketComponent implements OnInit, OnDestroy {
       { class: 'arial', name: 'Arial' },
       { class: 'times-new-roman', name: 'Times New Roman' },
       { class: 'calibri', name: 'Calibri' },
-      { class: 'comic-sans-ms', name: 'Comic Sans MS' }
+      { class: 'comic-sans-ms', name: 'Comic Sans MS' },
     ],
     customClasses: [
       {
@@ -229,7 +281,7 @@ export class AddServiceTicketComponent implements OnInit, OnDestroy {
       },
       {
         name: 'redText',
-        class: 'redText'
+        class: 'redText',
       },
       {
         name: 'titleText',
@@ -250,7 +302,7 @@ export class AddServiceTicketComponent implements OnInit, OnDestroy {
         'strikeThrough',
         'subscript',
         'superscript',
-        'fontName'
+        'fontName',
       ],
       [
         'fontSize',
@@ -263,9 +315,8 @@ export class AddServiceTicketComponent implements OnInit, OnDestroy {
         'insertVideo',
         'insertHorizontalRule',
         'removeFormat',
-        'toggleEditorMode'
-      ]
-    ]
+        'toggleEditorMode',
+      ],
+    ],
   };
-
 }

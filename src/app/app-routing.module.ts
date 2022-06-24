@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddDepartmentComponent } from './department/add-department/add-department.component';
 import { DepartmentComponent } from './department/department.component';
 import { AddServiceTicketComponent } from './service-management/add-service-ticket/add-service-ticket.component';
 import { ServiceTicketComponent } from './service-management/service-ticket/service-ticket.component';
@@ -24,15 +23,15 @@ const routes: Routes = [
 
   {
     path: 'users', component: UserComponent,canActivate: [AuthGuard,RoleGuard],
-    data: {roles: ['ADMIN']}
+    data: {roles: ['ADMIN','SYS_ADMIN']}
   },
   {
     path: 'user/change-password', component: ChangePasswordComponent,canActivate: [AuthGuard],
-    data: {roles: ['ADMIN']}
+    data: {roles: ['ADMIN','SYS_ADMIN']}
   },
   {
     path: 'departments', component: DepartmentComponent,canActivate: [AuthGuard,RoleGuard],
-    data: {roles: ['ADMIN']}
+    data: {roles: ['ADMIN','SYS_ADMIN']}
   },
   { path: "**", redirectTo: "home" },
 ];
@@ -48,7 +47,6 @@ export const AppRoutingComponents = [
   UserComponent,
   AddUserComponent,
   DepartmentComponent,
-  AddDepartmentComponent,
   ChangePasswordComponent,
   ResetPasswordComponent,
 ];

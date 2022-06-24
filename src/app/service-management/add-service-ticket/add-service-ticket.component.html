@@ -2,25 +2,30 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb" style="background-color: transparent;">
             <li class="breadcrumb-item">
-                <li class="breadcrumb-item active" aria-current="page">request-service</li>
+            <li class="breadcrumb-item active" aria-current="page">request-service</li>
         </ol>
     </nav>
     <div class="row">
         <div class="col-md-8 mt-2 mx-auto">
             <div class="card-2 p-3">
-                <form [formGroup]="serviceTicketFormGroup" #serviceTicketForm="ngForm" name="serviceTicketFormGroup" (ngSubmit)="serviceTicketForm.valid && submit()">
+                <form [formGroup]="serviceTicketFormGroup" #serviceTicketForm="ngForm" name="serviceTicketFormGroup"
+                    (ngSubmit)="serviceTicketForm.valid && submit()">
                     <h4 class="text-bold">Service Request</h4>
                     <div class="form-row pl-2 pr-2">
                         <div class="col-md-6" style="margin-bottom: 15px; margin-top: -5px;">
-                            <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                            <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard"
+                                style="width: 100%">
                                 <mat-label style="font-size: 16px;">Title</mat-label>
-                                <input matInput required formControlName="title" type="text" name="title" id="title" autocomplete="off" style="font-size: 18px;" />
+                                <input matInput required formControlName="title" type="text" name="title" id="title"
+                                    autocomplete="off" style="font-size: 18px;" />
                             </mat-form-field>
                         </div>
                         <div class="col-md-6" style="margin-bottom: 15px; margin-top: -5px;">
-                            <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                            <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard"
+                                style="width: 100%">
                                 <mat-label style="font-size: 16px;">Initiator</mat-label>
-                                <input matInput required formControlName="initiator" type="text" name="initiator" id="initiator" autocomplete="off" style="font-size: 18px;" />
+                                <input matInput required formControlName="initiator" type="text" name="initiator"
+                                    id="initiator" autocomplete="off" style="font-size: 18px;" />
                             </mat-form-field>
                         </div>
                     </div>
@@ -31,15 +36,18 @@
 
                                 <textarea style="font-size: 18px;" class="" rows="3" matInput formControlName="description" type="text" id="description" name="description" required minlength="4" autocomplete="off" [ngClass]="{ 'is-invalid':serviceTicketForm.submitted && serviceTicketFormGroup.get('description')?.hasError('required') }"></textarea>
                             </mat-form-field> -->
-                            <angular-editor formControlName="richTextDescription" [config]="editorConfig"></angular-editor>
+                            <angular-editor formControlName="richTextDescription" [config]="editorConfig">
+                            </angular-editor>
 
                         </div>
                     </div>
                     <div class="form-row pl-2 pr-2">
                         <div class="col-md-6" style="margin-bottom: 15px; margin-top: -5px;">
-                            <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                            <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard"
+                                style="width: 100%">
                                 <mat-label style="font-size: 16px;">Category</mat-label>
-                                <mat-select required formControlName="category" name="category" id="category" style="font-size: 18px;">
+                                <mat-select required formControlName="category" name="category" id="category"
+                                    style="font-size: 18px;">
                                     <mat-option *ngFor="let category of categoryList$ | async" [value]="category">
                                         {{category}}
                                     </mat-option>
@@ -48,11 +56,22 @@
                         </div>
 
                         <div class="col-md-6" style="margin-bottom: 15px; margin-top: -5px;">
-                            <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                            <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard"
+                                style="width: 100%">
                                 <mat-label style="font-size: 16px;">Impact</mat-label>
-                                <mat-select required formControlName="impact" name="impact" id="impact" style="font-size: 18px;">
+                                <mat-select required formControlName="impact" name="impact" id="impact"
+                                    style="font-size: 18px;">
                                     <mat-option value="ONLY_ME">
                                         ONLY ME
+                                    </mat-option>
+                                    <mat-option value="DEPARTMENT">
+                                        DEPARTMENT
+                                    </mat-option>
+                                    <mat-option value="OFFICE">
+                                        OFFICE
+                                    </mat-option>
+                                    <mat-option value="GROUP">
+                                        GROUP
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -61,26 +80,28 @@
                     <div class="form-row pl-2 pr-2">
 
                         <div class="col-md-6" style="margin-bottom: 15px; margin-top: -5px;">
-                            <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
-                                <mat-label style="font-size: 16px;">Assign To</mat-label>
+                            <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard"
+                                style="width: 100%">
+                                <mat-label style="font-size: 16px;">Assign To Department</mat-label>
                                 <!-- <input matInput required formControlName="department" type="text" name="password" id="password" autocomplete="off" style="font-size: 18px;" /> -->
-                                <mat-select required formControlName="assignedTo" name="assignedTo" id="assignedTo" style="font-size: 18px;">
-                                    <mat-option *ngFor="let department of departmentList$ | async" [value]="department.name">
+                                <mat-select required formControlName="assignedToDepartment" name="assignedToDepartment" id="assignedToDepartment"
+                                    style="font-size: 18px;">
+                                    <mat-option *ngFor="let department of departmentList$ | async"
+                                        [value]="department.name">
                                         {{department.name}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
-                        <!-- <div class="col-md-6" style="margin-bottom: 15px; margin-top: -5px;">
-                            <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
-                                <mat-label style="font-size: 16px;">Assign To</mat-label>
-                                <input matInput required formControlName="assignedTo" type="text" name="assignedTo" id="assignedTo" autocomplete="off" style="font-size: 18px;" />
-                            </mat-form-field>
-                        </div> -->
                         <div class="col-md-6" style="margin-bottom: 15px; margin-top: -5px;">
-                            <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard" style="width: 100%">
+                            <mat-form-field floatLabel="auto" hideRequiredMarker appearance="standard"
+                                style="width: 100%">
                                 <mat-label style="font-size: 16px;">Urgency</mat-label>
-                                <mat-select required formControlName="urgency" name="urgency" id="urgency" style="font-size: 18px;">
+                                <mat-select required formControlName="urgency" name="urgency" id="urgency"
+                                    style="font-size: 18px;">
+                                    <mat-option value="CRITICAL">
+                                        CRITICAL
+                                    </mat-option>
                                     <mat-option value="HIGH">
                                         HIGH
                                     </mat-option>
@@ -94,9 +115,12 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <button mat-flat-button color="primary" [disabled]="isLoading || !serviceTicketForm.valid" style="font-size: 18px; font-family: avenir-roman; height: 44px;" class="btn btn-block btn-primary mt-2 color-white">Submit</button>
+                    <button mat-flat-button color="primary" [disabled]="isLoading || !serviceTicketForm.valid"
+                        style="font-size: 18px; font-family: avenir-roman; height: 44px;"
+                        class="btn btn-block btn-primary mt-2 color-white">Submit</button>
                     <div class="col-md-12 d-flex justify-content-center mt-2 mb-3">
-                        <mat-spinner [hidden]="!isLoading" class="align-self-center" mode="indeterminate" [diameter]="35" [strokeWidth]="2">
+                        <mat-spinner [hidden]="!isLoading" class="align-self-center" mode="indeterminate"
+                            [diameter]="35" [strokeWidth]="2">
                         </mat-spinner>
                     </div>
                 </form>

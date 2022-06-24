@@ -1,0 +1,130 @@
+{
+  "service_tickets_comments": [],
+  "service_tickets": [
+    {
+      "title": "Service Ticket 1",
+      "description": "Service Ticket 1 description",
+      "id": "669c7af378674e086526 ",
+      "date": "2019-01-01",
+      "status": "OPEN",
+      "assignedTo": {
+        "name": "Emmanuel Mensah",
+        "id": "669c7af37867086526"
+      },
+      "initiator": {
+        "name": "John Doe",
+        "id": "669c7af37867086526 "
+      },
+      "impact": "ONLY_ME",
+      "urgency": "LOW",
+      "category": "GENERAL",
+      "type": "REQUEST"
+    },
+    {
+      "id": "1654103960951",
+      "title": "Id card replacement",
+      "description": "",
+      "richTextDescription": "Id card replacement",
+      "type": "REQUEST",
+      "status": "OPEN",
+      "assignedTo": "STUDENT SUPPORT UNIT",
+      "date": "",
+      "category": "ID CARD",
+      "impact": "ONLY_ME",
+      "urgency": "MEDIUM",
+      "attachments": "",
+      "initiator": "Emmanuel Mensah",
+      "createdDate": "1654103960951",
+      "createdBy": "Emmanuel Mensah"
+    },
+    {
+      "id": "1654106907829",
+      "title": "The new Request",
+      "description": "",
+      "richTextDescription": "The new Request",
+      "type": "REQUEST",
+      "status": "OPEN",
+      "assignedTo": "STUDENT SUPPORT UNIT",
+      "date": "1654106907829",
+      "category": "EXAMINATION",
+      "impact": "ONLY_ME",
+      "urgency": "MEDIUM",
+      "attachments": "",
+      "initiator": "Emmanuel Mensah",
+      "createdDate": "1654106907829",
+      "createdBy": "Emmanuel Mensah"
+    },
+    {
+      "id": "1654109479028",
+      "title": "Id replacement",
+      "description": "",
+      "richTextDescription": "Id replacement",
+      "type": "ISSUE",
+      "status": "OPEN",
+      "assignedTo": "STUDENT SUPPORT UNIT",
+      "date": "1654109479028",
+      "category": "ID CARD",
+      "impact": "ONLY_ME",
+      "urgency": "MEDIUM",
+      "attachments": "",
+      "initiator": "Emmanuel Mensah",
+      "createdDate": "1654109479028",
+      "createdBy": "Emmanuel Mensah"
+    }
+  ],
+  "departments": [
+    {
+      "name": "IT OPERATIONS",
+      "description": "IT Operations",
+      "operations": "desktop support,user account",
+      "id": "669c7af378674e086526 "
+    },
+    {
+      "name": "STUDENT SUPPORT UNIT",
+      "description": "Students Support Unit",
+      "operations": "students support,general support",
+      "id": "669c7af377674e086526 "
+    },
+    {
+      "name": "CASH OFFICE",
+      "description": "Cash and fees Operations",
+      "operations": "fees operations, general support",
+      "id": "669c7af308674e086526 "
+    },
+    {
+      "name": "EXAMINATION UNIT",
+      "description": "Examiniation Operations",
+      "operations": "Examination support,general support",
+      "id": "669c7af379674e086526 "
+    }
+  ],
+  "users": [
+    {
+      "username": "profause",
+      "email": "profaust@gmail.com",
+      "id": "669c7af378674e086526 ",
+      "fullname": "Emmanuel Mensah",
+      "role": "ADMIN",
+      "department": "IT OPERATIONS"
+    },
+    {
+      "id": "1654100714965",
+      "fullname": "Stevt",
+      "username": "steven",
+      "password": "$2a$10$22v6IiHDbh/h9IZdHNgRVOhj416dlyKKYEhIqCqPKuPuDHlszZYUm",
+      "email": "steven@gmail.com",
+      "role": "RESOLVER",
+      "department": "EXAMINATION UNIT"
+    },
+    {
+      "id": "1654109329102",
+      "fullname": "Johnnnnn",
+      "username": "johnyyyyyy",
+      "password": "$2a$10$qF8TMeGzd9x5iMB0dDUhT.VJ49tNvIPRtotegrd1/0k6gZKAEbbw.",
+      "email": "doe@gmail.com",
+      "role": "RESOLVER",
+      "department": "EXAMINATION UNIT"
+    }
+  ],
+  "roles": []
+}

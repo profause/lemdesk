@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: "service-management",
     component: ServiceManagementComponent, canActivate: [],
-    data: {roles: ['ADMIN','RESOLVER']} ,children: [
+    data: {roles: ['ADMIN','RESOLVER','USER','STUDENT']} ,children: [
       {
         path: "request-service",
         component: AddServiceTicketComponent,

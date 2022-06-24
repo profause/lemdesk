@@ -81,6 +81,7 @@ export class AddServiceTicketCommentComponent implements OnInit, OnDestroy {
         })
 
     } else {
+      delete formData['id'];
       t.backend.addServiceTicketComment(formData)
         .pipe(takeUntil(t.unSubscriptioNotifier))
         .subscribe({
