@@ -6,7 +6,8 @@ export const environment = {
   production: false,
 
   backend: {
-    baseUrl: 'http://localhost:3000',
+    //baseUrl: 'http://localhost:3000',
+    baseUrl:'https://lemdesk-api.herokuapp.com'
   }
 };
 
